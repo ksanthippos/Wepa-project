@@ -15,7 +15,7 @@ public class Image extends AbstractPersistable<Long> {
 
     private String description;
 
-   /* @Lob
-    private byte[] content;*/
+    @Lob
+    private byte[] content;
 
 }
