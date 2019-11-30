@@ -6,8 +6,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,16 +22,18 @@ public class Profile extends AbstractPersistable<Long> {
     private String name;    // profile users real name
     private String alias;   // profile alias on the address field
 
-    @OneToOne
+/*    @OneToOne
     private Profile blockedByProfile;   // profile is blocked by this profile --> not visible both ways
     @OneToOne
-    private Image profilePic;
-    @OneToMany
-    private List<Image> picGallery;
-    @OneToMany
+    private Image profilePic;*/
+
+    @OneToMany(mappedBy = "profile")
+    private List<Image> picGallery = new ArrayList<>();
+
+/*    @OneToMany
     private List<Profile> followingMe;  // following this profile
     @OneToMany
-    private List<Profile> followingAt;  // profiles followed by this profile
+    private List<Profile> followingAt;  // profiles followed by this profile*/
 
 
 

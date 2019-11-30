@@ -5,8 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
-import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.*;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -14,6 +14,9 @@ import javax.persistence.Lob;
 public class Image extends AbstractPersistable<Long> {
 
     private String description;
+
+    @ManyToOne
+    private Profile profile;
 
     @Lob
     private byte[] content;
