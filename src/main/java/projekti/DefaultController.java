@@ -9,7 +9,7 @@ public class DefaultController {
     // default --> profile
     @GetMapping("*")
     public String toAccount() {
-        return "account";
+        return "accounts";
     }
 /*
     @GetMapping("*")

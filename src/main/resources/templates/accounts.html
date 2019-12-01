@@ -6,7 +6,7 @@
     </head>
     <body>
 
-        <h2>Accounts</h2>
+        <h2>Accounts (remove this)</h2>
 
         <ol>
             <li th:each="account : ${accounts}">
@@ -14,6 +14,7 @@
             </li>
         </ol>
 
+        <h2>Register here:</h2>
         <form method="POST" th:action="@{/accounts}">
             <input type="text" name="username"/>
             <input type="password" name="password"/>
