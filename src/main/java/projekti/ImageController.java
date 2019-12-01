@@ -19,9 +19,9 @@ public class ImageController {
         return "redirect:/images/1";
     }
 
-    @GetMapping("/{id}/profile")
+    @GetMapping("/{id}/account")
     public String back() {
-        return "redirect:/profile";
+        return "redirect:/account";
     }
 
     @GetMapping("images/{id}")

@@ -16,7 +16,7 @@ public class Image extends AbstractPersistable<Long> {
     private String description;
 
     @ManyToOne
-    private Profile profile;
+    private Account account;
 
     @Lob
     private byte[] content;
