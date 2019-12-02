@@ -28,10 +28,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().sameOrigin();
 
         http.authorizeRequests()
-                //.antMatchers("/accounts","/accounts/**").permitAll()
-                //.antMatchers("/h2-console","/h2-console/**").permitAll()
+                .antMatchers("/accounts","/accounts/**").permitAll()
+                .antMatchers("/h2-console","/h2-console/**").permitAll()
                 .anyRequest().authenticated().and()
-                .formLogin().permitAll().and()
+                .formLogin().permitAll()
+                .and()
                 .logout().permitAll();
     }
 

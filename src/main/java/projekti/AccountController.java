@@ -50,7 +50,7 @@ public class AccountController {
 
         Account a = new Account(username, passwordEncoder.encode(password));
         accountRepository.save(a);
-        return "redirect:/accounts/" + a.getId();
+        return "redirect:/accounts/";
     }
 
 
