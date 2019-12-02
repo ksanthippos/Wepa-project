@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head lang="en">
         <meta charset="UTF-8" />
-        <title>Accounts</title>
+        <title>Register</title>
     </head>
     <body>
 
-        <h2>Accounts (remove this)</h2>
+        <h2>Create a new account</h2>
 
         <ol>
             <li th:each="account : ${accounts}">
@@ -18,7 +18,11 @@
         <form method="POST" th:action="@{/accounts}">
             <input type="text" name="username"/>
             <input type="password" name="password"/>
-            <input type="submit" value="Add new account!"/>
+            <input type="submit" value="Create"/>
         </form>
+
+        <div>
+            <h2><a href="/login">To login page</a> </h2>
+        </div>
     </body>
 </html>

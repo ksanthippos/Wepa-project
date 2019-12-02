@@ -22,16 +22,12 @@ public class AccountController {
     private PasswordEncoder passwordEncoder;
 
 
-    @GetMapping("/")
-    public String home() {
-        return "accounts";
-    }
 
 
     @GetMapping("/accounts")
     public String listAll(Model model) {
         model.addAttribute("accounts", accountRepository.findAll());
-        return "accounts";
+        return "register";
     }
 
     @GetMapping("/accounts/{id}")
@@ -50,7 +46,7 @@ public class AccountController {
 
         Account a = new Account(username, passwordEncoder.encode(password));
         accountRepository.save(a);
-        return "redirect:/accounts/";
+        return "redirect:/account";
     }
 
 

@@ -15,7 +15,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@Order(1000)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -28,12 +27,19 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().sameOrigin();
 
         http.authorizeRequests()
-                .antMatchers("/accounts","/accounts/**").permitAll()
-                .antMatchers("/h2-console","/h2-console/**").permitAll()
-                .anyRequest().authenticated().and()
-                .formLogin().permitAll()
-                .and()
-                .logout().permitAll();
+                .antMatchers("/accounts","/accounts/**")
+                    .permitAll()
+                .antMatchers("/h2-console","/h2-console/**")
+                    .permitAll()
+                .anyRequest()
+                    .authenticated()
+                    .and()
+                .formLogin()
+                    .loginPage("/login")
+                    .permitAll()
+                    .and()
+                .logout()
+                    .permitAll();
     }
 
     @Autowired
