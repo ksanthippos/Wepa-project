@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
     <title>Profile page</title>
@@ -7,26 +8,12 @@
     <body>
 
         <h1>Your account!</h1>
-        <span th:text="${account.getUsername()}">name</span>
+        <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
 
-        <div>
-
-            <h2>Choose profile (account) to follow:</h2>
-
-            <ol>
-                <li th:each="account : ${accounts}">
-                    <span th:text="${account.username}">msg</span>
-                </li>
-            </ol>
-
-            <br>
-
-            <h2>Your followers:</h2>
-
-        </div>
-
-        <a href="images">Goto images</a>
+        <form th:action="@{/logout}" method="post">
+            <input type="submit" value="Sign Out"/>
+        </form>
 
 
     </body>

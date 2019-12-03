@@ -22,11 +22,14 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String add(@RequestParam String username, @RequestParam String password) {
+    public String addAccount(@RequestParam String username, @RequestParam String password) {
+
+        // error parameters here, if username already in use etc
         if (accountRepository.findByUsername(username) != null) {
             return "redirect:/register";
         }
 
+        // login succesful
         Account a = new Account(username, passwordEncoder.encode(password));
         accountRepository.save(a);
         return "redirect:/login";
