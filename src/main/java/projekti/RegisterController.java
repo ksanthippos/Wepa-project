@@ -21,6 +21,17 @@ public class RegisterController {
         return "register";
     }
 
+    @PostMapping("/register")
+    public String add(@RequestParam String username, @RequestParam String password) {
+        if (accountRepository.findByUsername(username) != null) {
+            return "redirect:/register";
+        }
+
+        Account a = new Account(username, passwordEncoder.encode(password));
+        accountRepository.save(a);
+        return "redirect:/login";
+    }
+
 
 
 

@@ -27,7 +27,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().sameOrigin();
 
         http.authorizeRequests()
-                //.antMatchers("/accounts","/accounts/**")
                 .antMatchers("/register")
                     .permitAll()
                 .antMatchers("/h2-console","/h2-console/**")
@@ -39,7 +38,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .loginPage("/login")
                     .permitAll()
                     .and()
-                .formLogin().defaultSuccessUrl("/accounts").and()
+                .formLogin()
+                    .defaultSuccessUrl("/account/**")
+                    .and()
                 .logout()
                     .permitAll();
     }

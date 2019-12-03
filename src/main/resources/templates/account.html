@@ -7,12 +7,18 @@
     <body>
 
         <h1>Your account!</h1>
-
+        <span th:text="${account.getUsername()}">name</span>
 
 
         <div>
 
             <h2>Choose profile (account) to follow:</h2>
+
+            <ol>
+                <li th:each="account : ${accounts}">
+                    <span th:text="${account.username}">msg</span>
+                </li>
+            </ol>
 
             <br>
 

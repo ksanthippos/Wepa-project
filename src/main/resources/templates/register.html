@@ -8,14 +8,10 @@
 
         <h2>Create a new account</h2>
 
-        <ol>
-            <li th:each="account : ${accounts}">
-                <span th:text="${account.username}">msg</span>
-            </li>
-        </ol>
+
 
         <h2>Register here:</h2>
-        <form method="POST" th:action="@{/accounts}">
+        <form method="POST" th:action="@{/register}">
             <input type="text" name="username"/>
             <input type="password" name="password"/>
             <input type="submit" value="Create"/>

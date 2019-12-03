@@ -1,17 +1,15 @@
 package projekti;
 
+import ignored.Image;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Data
@@ -24,14 +22,14 @@ public class Account extends AbstractPersistable<Long> {
     private String password;
 
     // constructor for creating account
-    public Account(String username, String password) {
+/*    public Account(String username, String password) {
         //this.name = name;
         this.username = username;
         this.password = password;
-    }
+    }*/
 
-    @OneToMany(mappedBy = "account")
-    private List<Image> picGallery = new ArrayList<>();
+/*    @OneToMany(mappedBy = "account")
+    private List<Image> picGallery = new ArrayList<>();*/
 
 
 

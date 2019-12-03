@@ -1,4 +1,4 @@
-package projekti;
+package ignored;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
