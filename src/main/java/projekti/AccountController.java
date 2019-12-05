@@ -32,16 +32,26 @@ public class AccountController {
         Account me = accountRepository.findByUsername(username);
 
         if (me.getNickname().equals(nickname)) {
-            return "/mypage";
+            // ENTÄ MODEL?
+            model.addAttribute("account", me);
+            return "mypage";
         }
 
-        return "/friendspage";
+        Account friend = accountRepository.findByNickname(nickname);
+        model.addAttribute("account", friend);
+        return "friendspage";
 
     }
 
     @GetMapping("/mypage")
-    public String getMyPage() {
-        return "/mypage";
+    public String getMyPage(Model model) {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Account me = accountRepository.findByUsername(username);
+
+        model.addAttribute("account", me);
+        return "mypage";
     }
 
 

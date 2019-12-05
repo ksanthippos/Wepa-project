@@ -10,6 +10,7 @@
 
         <h1>Your own page!</h1>
 
+        <h2 th:text="${account.getUsername()}">my name</h2>
 
 
         <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
