@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>All profiles!</h1>
+
+<li th:each="account: ${accounts}">
+    <a th:href="@{/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a> (<span th:text="${account.getNickname()}">type</span>)
+</li>
+</ol>
+
+<a href="mypage">My profile</a>
+
+
+</body>
+</html>

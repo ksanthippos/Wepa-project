@@ -1,5 +1,6 @@
 package projekti;
 
+import org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,21 +18,41 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-
-
-    @GetMapping("/account")
-    public String listAll(Model model) {
+    @GetMapping("/users")
+    public String getAll(Model model) {
         model.addAttribute("accounts", accountRepository.findAll());
-        return "account";
+        return "users";
     }
 
-    @GetMapping("/account/{id}")
-    public String getOne(Model model, @PathVariable Long id) {
+    @GetMapping("/{nickname}")
+    public String getFriend(Model model, @PathVariable String nickname) {
 
-        model.addAttribute("account", accountRepository.getOne(id));
-        return "account";
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Account me = accountRepository.findByUsername(username);
+
+        if (me.getNickname().equals(nickname)) {
+            return "/mypage";
+        }
+
+        return "/friendspage";
 
     }
+
+    @GetMapping("/mypage")
+    public String getMyPage() {
+        return "/mypage";
+    }
+
+
+
+
+
+
+
+
+
+
 
 
 

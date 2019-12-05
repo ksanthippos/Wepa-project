@@ -20,6 +20,7 @@ public class Account extends AbstractPersistable<Long> {
     //private String name;    // users real name for the account ("John Doe")
     private String username;   // username for login ("johndoe")
     private String password;
+    private String nickname;
 
     // constructor for creating account
 /*    public Account(String username, String password) {

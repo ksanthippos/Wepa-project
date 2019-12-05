@@ -3,11 +3,15 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    <title>Profile page</title>
+    // KORJAA
+    <title>Title</title>
 </head>
     <body>
 
-        <h1>Your account!</h1>
+        <h1>Your own page!</h1>
+
+
+
         <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
 
