@@ -18,34 +18,41 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
+    // list of all users
     @GetMapping("/users")
     public String getAll(Model model) {
         model.addAttribute("accounts", accountRepository.findAll());
         return "users";
     }
 
+    // mapping for URL expression .../nickname
     @GetMapping("/{nickname}")
     public String getFriend(Model model, @PathVariable String nickname) {
 
+        // user authentication
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Account me = accountRepository.findByUsername(username);
 
+        // if user clicks his own profile from the list --> own profile is shown
         if (me.getNickname().equals(nickname)) {
-            // ENTÄ MODEL?
             model.addAttribute("account", me);
             return "mypage";
         }
 
+        // user sees only friend view from other users
         Account friend = accountRepository.findByNickname(nickname);
         model.addAttribute("account", friend);
         return "friendspage";
 
     }
 
+    // personal profile page mapping
+    // nickname does not show in URL yet.. but works when opened from user list
     @GetMapping("/mypage")
     public String getMyPage(Model model) {
 
+        // user authentication
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Account me = accountRepository.findByUsername(username);
