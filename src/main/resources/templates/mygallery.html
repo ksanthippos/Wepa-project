@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My photo gallery!</title>
+</head>
+<body>
+
+<h2>Number of images in your gallery:</h2>
+<h3 th:text="${images.size()}"></h3>
+
+<br>
+
+
+
+<br>
+
+<h2>Add image to your personal gallery:</h2>
+<form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
+    <input type="file" name="file" id="file"/>
+    <input type="submit" value="Add"/>
+</form>
+
+<br>
+<a href="/mypage">Back to profile</a>
+
+
+</body>
+</html>

@@ -51,8 +51,8 @@ public class AccountController {
 
     }
 
-    // personal profile page mapping
-    // nickname does not show in URL yet.. but works when opened from user list
+    // gathers all personal account info to mypage.html
+    // NOTE: nickname does not show in URL yet.. but works when opened from user list
     @GetMapping("/mypage")
     public String getMyPage(Model model) {
 

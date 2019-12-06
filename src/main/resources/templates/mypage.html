@@ -3,34 +3,55 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
-    // KORJAA
     <title>Title</title>
 </head>
     <body>
 
-        <h1>Your own page!</h1>
+        <h1 th:text="${account.getUsername() + 's profile page!'}">...whose page is this</h1>
+        <!--
+        This page acts as a profile "wall", which contains:
+        - profile picture
+        - messages (= posts on the wall)
+        - link to picture gallery
+        - list of followed profiles
+        -->
 
-        <h2 th:text="${account.getUsername()}">my name</h2>
-
-        <h3>Number of images in your gallery:</h3>
-        <h3 th:text="${account.getPicGallery().size()}"></h3>
-
-        <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
+        <h2>Message board:</h2>
+        <ul>
+            <li th:each="message: ${account.getMessageList()}">
+                <span th:text="${#temporals.format(message.getDateTime(), 'yyyy-MM-dd-hh-mm')} + ' : ' + ${message.getContent()}">message here with post datetime</span>
+            </li>
+        </ul>
 
         <br>
 
-        <h2>Add image to your personal gallery:</h2>
-        <form method="POST" th:action="@{/mypage}" enctype="multipart/form-data">
-            <input type="file" name="file" id="file"/>
-            <input type="submit" value="Add"/>
+        <h2>Post a new message:</h2>
+        <form method="POST" th:action="@{/mypage}">
+            <p>Content: </p><input type="text" name="content" id="content"/>
+            <input type="submit" value="Post"/>
         </form>
 
+
+
+
+
+        <!-- *********************-->
+
+        <h2>Links:</h2>
+        <br>
+        <a href="/mygallery">My photo gallery</a>
+        <br>
         <a href="/users">Back to friend list</a>
+        <br>
+
 
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Log Out"/>
         </form>
 
+
+        <!-- dont need this? -->
+        <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
 
     </body>
 </html>

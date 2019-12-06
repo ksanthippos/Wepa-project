@@ -29,6 +29,8 @@ public class Account extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "account")
     private List<Image> picGallery = new ArrayList<>();
 
+    @OneToMany(mappedBy = "account")
+    private List<Message> messageList = new ArrayList<>();
 
 
 
