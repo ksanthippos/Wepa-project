@@ -1,4 +1,4 @@
-package ignored;
+package projekti;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

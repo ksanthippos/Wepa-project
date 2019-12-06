@@ -1,6 +1,5 @@
 package projekti;
 
-import ignored.Image;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,20 +16,18 @@ import java.util.List;
 @AllArgsConstructor
 public class Account extends AbstractPersistable<Long> {
 
-    //private String name;    // users real name for the account ("John Doe")
-    private String username;   // username for login ("johndoe")
+    private String username;
     private String password;
     private String nickname;
 
-    // constructor for creating account
-/*    public Account(String username, String password) {
-        //this.name = name;
+    public Account(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
-    }*/
+        this.nickname = nickname;
+    }
 
-/*    @OneToMany(mappedBy = "account")
-    private List<Image> picGallery = new ArrayList<>();*/
+    @OneToMany(mappedBy = "account")
+    private List<Image> picGallery = new ArrayList<>();
 
 
 

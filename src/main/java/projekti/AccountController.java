@@ -11,12 +11,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class AccountController {
 
     @Autowired
     private AccountRepository accountRepository;
+
 
     // list of all users
     @GetMapping("/users")
@@ -60,6 +64,11 @@ public class AccountController {
         model.addAttribute("account", me);
         return "mypage";
     }
+
+
+
+
+
 
 
 
