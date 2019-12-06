@@ -30,7 +30,7 @@ public class AccountController {
     }
 
     // mapping for URL expression .../nickname
-    @GetMapping("/{nickname}")
+    @GetMapping("/account/{nickname}")
     public String getFriend(Model model, @PathVariable String nickname) {
 
         // user authentication
@@ -51,8 +51,7 @@ public class AccountController {
 
     }
 
-    // gathers all personal account info to mypage.html
-    // NOTE: nickname does not show in URL yet.. but works when opened from user list
+    // separate page for profile (if not selected on the users list), gets redirected via previous GET-request
     @GetMapping("/mypage")
     public String getMyPage(Model model) {
 
@@ -62,7 +61,7 @@ public class AccountController {
         Account me = accountRepository.findByUsername(username);
 
         model.addAttribute("account", me);
-        return "mypage";
+        return "redirect:/account/" + me.getNickname();
     }
 
 

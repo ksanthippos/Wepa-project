@@ -9,17 +9,21 @@
 
         <h1 th:text="${account.getUsername() + 's profile page!'}">...whose page is this</h1>
         <!--
-        This page acts as a profile "wall", which contains:
+        Users profile page, which contains:
+        - wall of messages (own and friends)
         - profile picture
-        - messages (= posts on the wall)
         - link to picture gallery
-        - list of followed profiles
+        - list of followed profiles (who this profile is following)
         -->
 
-        <h2>Message board:</h2>
+        <img src="" alt="dick pic here">
+        <br>
+
+        <h2>Wall:</h2>
         <ul>
             <li th:each="message: ${account.getMessageList()}">
-                <span th:text="${#temporals.format(message.getDateTime(), 'yyyy-MM-dd-hh-mm')} + ' : ' + ${message.getContent()}">message here with post datetime</span>
+                <span th:text="${message.getContent()} + '; posted by: ' + ${message.getAccount().getUsername()} + '; ' +
+                                        ${#temporals.format(message.getDateTime(), 'yyyy-MM-dd-hh-mm')} ">message</span>
             </li>
         </ul>
 
@@ -36,22 +40,21 @@
 
 
         <!-- *********************-->
-
+        <br><br>
         <h2>Links:</h2>
-        <br>
-        <a href="/mygallery">My photo gallery</a>
-        <br>
+        <br><br>
+        <!--<a href="/mygallery">My photo gallery</a>           OLD STYLE LINK-->
+        <a th:href="@{/gallery/{nickname}(nickname=${account.getNickname()})}">Photo gallery</a>    <!-- changed gallery path -->
+
+        <br><br>
         <a href="/users">Back to friend list</a>
-        <br>
+        <br><br>
 
 
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Log Out"/>
         </form>
 
-
-        <!-- dont need this? -->
-        <!--<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>-->
 
     </body>
 </html>

@@ -10,12 +10,16 @@
 <h1>All profiles!</h1>
 
 <li th:each="account: ${accounts}">
-    <a th:href="@{/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a> (<span th:text="${account.getNickname()}">type</span>)
+    <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a> (<span th:text="${account.getNickname()}">type</span>)
 </li>
 </ol>
 
 <a href="mypage">My profile</a>
-
+<br>
+<br>
+<form th:action="@{/logout}" method="post">
+    <input type="submit" value="Log Out"/>
+</form>
 
 </body>
 </html>

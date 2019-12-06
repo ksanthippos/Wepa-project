@@ -1,8 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>This is your friends gallery:</title>
+
+
+    <br>
+    <h1 th:text="${account.getUsername()} + 's photo gallery!'">gallery owner</h1>
+
+    <h2>Number of images in gallery:</h2>
+    <h3 th:text="${account.getPicGallery().size()}"></h3>
 
 
 

@@ -13,6 +13,7 @@
         <h2 th:text="${account.getUsername()}">name</h2>
 
 
+        <a th:href="@{/gallery/{nickname}(nickname=${account.getNickname()})}">Photo gallery</a>    <!-- changed gallery path -->
 
         <a href="/users">Back to friend list</a>
 
