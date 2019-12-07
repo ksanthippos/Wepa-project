@@ -30,14 +30,21 @@ public class Account extends AbstractPersistable<Long> {
 
     }
 
+    // OK
+
     @OneToMany(mappedBy = "account")
     private List<Image> picGallery = new ArrayList<>();
 
     @OneToMany(mappedBy = "account")
     private List<Message> messageList = new ArrayList<>();
 
+    @ManyToOne
+    private Message likedMessage;   // user can like different messages but each only once
+
+/*
     @ManyToMany(mappedBy = "likedAccounts")
     private List<Message> likedMessages = new ArrayList<>();
+*/
 
 
     // following and blocking

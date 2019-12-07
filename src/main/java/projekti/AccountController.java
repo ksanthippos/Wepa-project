@@ -42,6 +42,7 @@ public class AccountController {
         // if user clicks his own profile from the list --> own profile is shown
         if (me.getNickname().equals(nickname)) {
             model.addAttribute("account", me);
+            // need model for 'other' account too?
             return "mypage";
         }
 
@@ -56,8 +57,9 @@ public class AccountController {
         for (Account a: me.getFollowingAt()) {
             if (a.getId() == other.getId()) {   // account ids are unique
 
-                model.addAttribute("name", other.getUsername());
-                model.addAttribute("account", other);
+                model.addAttribute("account", me);  // user
+                model.addAttribute("friend", other);    // target
+
                 return "friendspage";
             }
         }

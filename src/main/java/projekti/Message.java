@@ -21,12 +21,15 @@ public class Message extends AbstractPersistable<Long> {
     private String content;
     private LocalDateTime dateTime;
 
-
     @ManyToOne
-    private Account account;
+    private Account account;    // every message comes from a certain account
 
-    @ManyToMany
-    private List<Account> likedAccounts = new ArrayList<>();    // each account can get only one like!
+    @OneToMany(mappedBy = "likedMessage")
+    private List<Account> likedAccounts = new ArrayList<>();    // a message can have multiple likes (= number of accounts)
+
+
+   /* @ManyToMany
+    private List<Account> likedAccounts = new ArrayList<>();    // each account can get only one like!*/
 
 
 }
