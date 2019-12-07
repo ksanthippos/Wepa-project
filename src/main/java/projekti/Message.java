@@ -7,9 +7,10 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -20,7 +21,12 @@ public class Message extends AbstractPersistable<Long> {
     private String content;
     private LocalDateTime dateTime;
 
+
     @ManyToOne
     private Account account;
+
+    @ManyToMany
+    private List<Account> likedAccounts = new ArrayList<>();    // each account can get only one like!
+
 
 }

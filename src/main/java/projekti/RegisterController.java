@@ -29,7 +29,7 @@ public class RegisterController {
             return "redirect:/register";
         }
 
-        // login succesful
+        // create a new account
         Account a = new Account(username, passwordEncoder.encode(password), nickname);
         accountRepository.save(a);
         return "redirect:/login";

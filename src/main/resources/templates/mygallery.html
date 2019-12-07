@@ -19,7 +19,7 @@
 <h2>Add image to your personal gallery:</h2>
 <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
     <input type="file" name="file" id="file"/>
-    <input type="text" name="description" id="description"/>
+    <p>Description: </p><input type="text" name="description" id="description"/>
     <input type="submit" value="Add"/>
 </form>
 

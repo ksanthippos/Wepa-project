@@ -15,11 +15,15 @@ import javax.persistence.*;
 public class Image extends AbstractPersistable<Long> {
 
     private String description;
-
+    private boolean isProfilePic;
+    
     @ManyToOne
     private Account account;
 
     @Lob
     private byte[] content;
+
+
+
 
 }
