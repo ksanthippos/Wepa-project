@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>This is your friends gallery:</title>
-
-
-    <br>
-    <h1 th:text="${account.getUsername()} + 's photo gallery!'">gallery owner</h1>
-
-    <h2>Number of images in gallery:</h2>
-    <h3 th:text="${account.getPicGallery().size()}"></h3>
-
-
-
 </head>
 <body>
+
+<br>
+<h1 th:text="${name} + 's photo gallery!'">gallery owner</h1>
+
+<h2>Number of images in gallery:</h2>
+<h3 th:text="${account.getPicGallery().size()}"></h3>
+
+
+
+
 
 </body>
 </html>

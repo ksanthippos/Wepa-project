@@ -22,8 +22,11 @@
         <h2>Wall:</h2>
         <ul>
             <li th:each="message: ${account.getMessageList()}">
-                <span th:text="${message.getContent()} + '; posted by: ' + ${message.getAccount().getUsername()} + '; ' +
-                                        ${#temporals.format(message.getDateTime(), 'yyyy-MM-dd-hh-mm')} ">message</span>
+                <span> <p th:text="${message.getContent()}"></p>
+                    <p th:text="'posted by: ' + ${message.getAccount().getUsername()} + '; ' +
+                                                ${#temporals.format(message.getDateTime(), 'dd.MM.yyyy hh:mm')}">message</p>
+                </span>
+
             </li>
         </ul>
 

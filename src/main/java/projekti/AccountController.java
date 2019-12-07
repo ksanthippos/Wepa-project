@@ -37,6 +37,7 @@ public class AccountController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         Account me = accountRepository.findByUsername(username);
+        Account other = accountRepository.findByNickname(nickname);
 
         // if user clicks his own profile from the list --> own profile is shown
         if (me.getNickname().equals(nickname)) {
@@ -44,10 +45,25 @@ public class AccountController {
             return "mypage";
         }
 
-        // user sees only friend view from other users
-        Account friend = accountRepository.findByNickname(nickname);
-        model.addAttribute("account", friend);
-        return "friendspage";
+        // TEST USE: every account is followed
+        // ******
+
+        accountRepository.getOne(me.getId()).getFollowingAt().add(accountRepository.findByNickname(nickname));
+
+        // ******
+
+        // profile is followed --> view profile
+        for (Account a: me.getFollowingAt()) {
+            if (a.getId() == other.getId()) {   // account ids are unique
+
+                model.addAttribute("name", other.getUsername());
+                model.addAttribute("account", other);
+                return "friendspage";
+            }
+        }
+
+        // not following --> redirect back
+        return "redirect:/users";
 
     }
 

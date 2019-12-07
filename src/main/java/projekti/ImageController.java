@@ -49,8 +49,8 @@ public class ImageController {
             return "mygallery";
         }
 
-        // user sees only friend view from other users
         Account friend = accountRepository.findByNickname(nickname);
+        model.addAttribute("name", accountRepository.findByNickname(nickname).getUsername());
         model.addAttribute("account", friend);
         return "friendsgallery";
 

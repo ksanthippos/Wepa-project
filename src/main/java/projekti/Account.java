@@ -18,12 +18,15 @@ public class Account extends AbstractPersistable<Long> {
     private String username;
     private String password;
     private String nickname;
+/*    private List<Account> followedAccounts;
+    private List<Account> myFollowers;*/
 
 
     public Account(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
+
 
     }
 
@@ -38,17 +41,18 @@ public class Account extends AbstractPersistable<Long> {
 
 
     // following and blocking
-
     @ManyToMany
-    private List<Account> following = new ArrayList<>();    // all profiles this one is following
+    private List<Account> followingAt = new ArrayList<>();    // all profiles this one is following
 
-    @ManyToMany(mappedBy = "following")
-    private List<Account> followedBy = new ArrayList<>();   // all profiles that are following this profile
+    @ManyToMany(mappedBy = "followingAt")
+    private List<Account> followingMe = new ArrayList<>();   // all profiles that are following this profile
 
-    @ManyToOne
-    private Account blockedThis;                            // profile that blocked this profile
 
-    @OneToMany(mappedBy = "blockedThis")
+    // BLOCKING SAME STYLE AS FOLLOWING OR THIS?
+
+/*    @OneToMany(mappedBy = "blockedThis")
     private List<Account> blockedFollowers = new ArrayList<>();     // list of all profiles this profile has blocked
 
+    @ManyToOne
+    private Account blockedThis;                            // profile that blocked this profile*/
 }
