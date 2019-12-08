@@ -27,7 +27,7 @@
 
         <h2>Wall:</h2>
         <ul>
-            <li th:each="message: ${user.getMessageList()}">
+            <li th:each="message: ${newsfeed}">
                 <span> <p th:text="${message.getContent()}"></p>
                         <span th:text="'Posted by ' + ${message.getAccount().getUsername()} + ' on ' +
                             ${#temporals.format(message.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '">message here</span>

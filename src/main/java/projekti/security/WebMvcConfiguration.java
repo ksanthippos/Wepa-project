@@ -1,4 +1,4 @@
-package projekti;
+package projekti.security;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.Ordered;

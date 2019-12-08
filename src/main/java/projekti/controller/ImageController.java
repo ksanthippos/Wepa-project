@@ -1,4 +1,4 @@
-package projekti;
+package projekti.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -7,6 +7,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import projekti.repository.ImageRepository;
+import projekti.model.Account;
+import projekti.model.Image;
+import projekti.repository.AccountRepository;
 
 import java.io.IOException;
 
