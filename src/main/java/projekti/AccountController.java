@@ -49,8 +49,8 @@ public class AccountController {
 
         // if user clicks his own profile from the list --> own profile is shown
         if (me.getNickname().equals(nickname)) {
-            model.addAttribute("account", me);
-            // need model for 'other' account too?
+            model.addAttribute("user", me);
+            // model.addAttribute("account", me); PREVIOUS
             return "mypage";
         }
 
@@ -59,6 +59,7 @@ public class AccountController {
             if (a.getId() == other.getId()) {   // account ids are unique
 
                 model.addAttribute("account", me);  // user
+                // model.addAttribute("account", me);  // user PREVIOUS
                 model.addAttribute("friend", other);    // target
 
                 return "friendspage";
@@ -79,7 +80,8 @@ public class AccountController {
         String username = auth.getName();
         Account me = accountRepository.findByUsername(username);
 
-        model.addAttribute("account", me);
+        model.addAttribute("user", me);
+        // model.addAttribute("account", me); PREVIOUS
         return "redirect:/account/" + me.getNickname();
     }
 
