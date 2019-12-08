@@ -50,7 +50,6 @@ public class AccountController {
         // if user clicks his own profile from the list --> own profile is shown
         if (me.getNickname().equals(nickname)) {
             model.addAttribute("user", me);
-            // model.addAttribute("account", me); PREVIOUS
             return "mypage";
         }
 
@@ -58,8 +57,7 @@ public class AccountController {
         for (Account a: me.getFollowingAt()) {
             if (a.getId() == other.getId()) {   // account ids are unique
 
-                model.addAttribute("account", me);  // user
-                // model.addAttribute("account", me);  // user PREVIOUS
+                model.addAttribute("account", me);  // THIS EVEN NEEDED?
                 model.addAttribute("friend", other);    // target
 
                 return "friendspage";
@@ -81,7 +79,6 @@ public class AccountController {
         Account me = accountRepository.findByUsername(username);
 
         model.addAttribute("user", me);
-        // model.addAttribute("account", me); PREVIOUS
         return "redirect:/account/" + me.getNickname();
     }
 
@@ -104,7 +101,7 @@ public class AccountController {
         // user is already following --> redirect
         for (Account a: me.getFollowingAt()) {
             if (a.getId() == other.getId()) {
-                return "redirect:/users";   // if user not following, redirects to
+                return "redirect:/users";   // if user not following --> redirect
             }
         }
 
