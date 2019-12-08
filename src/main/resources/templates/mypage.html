@@ -40,6 +40,16 @@
 
         <br>
 
+        <h2>Following at:</h2>
+        <li th:each="account: ${account.getFollowingAt()}">
+            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+        </li>
+        <h2>MFollowing me:</h2>
+        <li th:each="account: ${account.getFollowingMe()}">
+            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+        </li>
+
+
         <h2>Post a new message:</h2>
         <form method="POST" th:action="@{/mypage}">
             <p>Content: </p><input type="text" name="content" id="content"/>

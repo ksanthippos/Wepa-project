@@ -46,13 +46,6 @@ public class AccountController {
             return "mypage";
         }
 
-        // TEST USE: every account is followed
-        // ******
-
-        accountRepository.getOne(me.getId()).getFollowingAt().add(accountRepository.findByNickname(nickname));
-
-        // ******
-
         // profile is followed --> view profile
         for (Account a: me.getFollowingAt()) {
             if (a.getId() == other.getId()) {   // account ids are unique
@@ -80,6 +73,34 @@ public class AccountController {
 
         model.addAttribute("account", me);
         return "redirect:/account/" + me.getNickname();
+    }
+
+
+    // add follower from the list
+    @PostMapping("/users/{id}")
+    public String addFriend(@PathVariable Long id) {
+
+        // user authentication
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Account me = accountRepository.findByUsername(username);
+        Account other = accountRepository.getOne(id);
+
+        // if already following --> redirect
+        for (Account a: me.getFollowingAt()) {
+            if (a.getId() == other.getId()) {
+                return "redirect:/users";   // NOTE! if select this on profile, redirects to wrong place
+            }
+        }
+
+        me.getFollowingAt().add(other);
+        other.getFollowingMe().add(me);
+
+        accountRepository.save(me);
+        accountRepository.save(other);
+
+        return "redirect:/users";
+
     }
 
 
