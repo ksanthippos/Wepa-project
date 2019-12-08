@@ -9,6 +9,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -18,48 +19,40 @@ public class Account extends AbstractPersistable<Long> {
     private String username;
     private String password;
     private String nickname;
-/*    private List<Account> followedAccounts;
-    private List<Account> myFollowers;*/
 
 
+    // ctor for creating a new account
     public Account(String username, String password, String nickname) {
         this.username = username;
         this.password = password;
         this.nickname = nickname;
-
-
     }
 
-    // OK
-
+    // THESE OK
+    // ****************
     @OneToMany(mappedBy = "account")
     private List<Image> picGallery = new ArrayList<>();
 
     @OneToMany(mappedBy = "account")
     private List<Message> messageList = new ArrayList<>();
 
-    @ManyToOne
-    private Message likedMessage;   // user can like different messages but each only once
-
-/*
-    @ManyToMany(mappedBy = "likedAccounts")
-    private List<Message> likedMessages = new ArrayList<>();
-*/
+    @ManyToMany
+    private List<Message> likedMessages = new ArrayList<>();   // user can like different messages but each only once
 
 
-    // following and blocking
+
+    // NOT SURE YET..
+    // *******************
+
     @ManyToMany
     private List<Account> followingAt = new ArrayList<>();    // all profiles this one is following
 
     @ManyToMany(mappedBy = "followingAt")
     private List<Account> followingMe = new ArrayList<>();   // all profiles that are following this profile
 
+    // **************
 
-    // BLOCKING SAME STYLE AS FOLLOWING OR THIS?
 
-/*    @OneToMany(mappedBy = "blockedThis")
-    private List<Account> blockedFollowers = new ArrayList<>();     // list of all profiles this profile has blocked
+    // BLOCKING SAME STYLE AS FOLLOWING ??
 
-    @ManyToOne
-    private Account blockedThis;                            // profile that blocked this profile*/
 }

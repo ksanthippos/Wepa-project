@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
 import java.time.LocalDateTime;
 
 @Controller
@@ -22,7 +23,9 @@ public class MessageController {
     @Autowired
     private AccountRepository accountRepository;
 
-    // posting allowed only on mypage
+
+
+    // message posting allowed only on users wall
     @PostMapping("/mypage")
     public String newMessage(@RequestParam String content) {
 
@@ -46,8 +49,33 @@ public class MessageController {
 
     }
 
+    // adding like
+    @PostMapping("/account/{nickname}/{id}")
+    public String addLike(@PathVariable String nickname, @PathVariable Long id) {
 
+        // user auth
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Account me = accountRepository.findByUsername(username);
+        Account other = accountRepository.findByNickname(nickname);
 
+        Message message = messageRepository.getOne(id);
+
+        // only one like per account
+        for (Message m: me.getLikedMessages()) {
+            if (m.getId() == message.getId()) {
+                return "redirect:/account/{nickname}";      // OR REVERT TO DISLIKE?
+            }
+        }
+
+        message.getLikedAccounts().add(me);
+        me.getLikedMessages().add(message);
+        accountRepository.save(me);
+        messageRepository.save(message);
+
+        return "redirect:/account/{nickname}";
+
+    }
 
 
 }

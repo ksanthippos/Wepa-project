@@ -11,6 +11,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Data
@@ -21,15 +22,15 @@ public class Message extends AbstractPersistable<Long> {
     private String content;
     private LocalDateTime dateTime;
 
+
     @ManyToOne
     private Account account;    // every message comes from a certain account
 
-    @OneToMany(mappedBy = "likedMessage")
+    @ManyToMany(mappedBy = "likedMessages")
     private List<Account> likedAccounts = new ArrayList<>();    // a message can have multiple likes (= number of accounts)
 
 
-   /* @ManyToMany
-    private List<Account> likedAccounts = new ArrayList<>();    // each account can get only one like!*/
+    // COMMENTS ALSO !!!
 
 
 }
