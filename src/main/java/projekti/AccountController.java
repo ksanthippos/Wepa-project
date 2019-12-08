@@ -25,7 +25,15 @@ public class AccountController {
     // list of all users
     @GetMapping("/users")
     public String getAll(Model model) {
+
+        // user authentication
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        Account me = accountRepository.findByUsername(username);
+
         model.addAttribute("accounts", accountRepository.findAll());
+        model.addAttribute("user", me);
+
         return "users";
     }
 
@@ -86,10 +94,15 @@ public class AccountController {
         Account me = accountRepository.findByUsername(username);
         Account other = accountRepository.getOne(id);
 
-        // if already following --> redirect
+        // is hidden in thymeleaf but just a backup: an account should'nt follow itself
+        if (me.getId() == other.getId()) {
+            return "redirect:/mypage";
+        }
+
+        // user is already following --> redirect
         for (Account a: me.getFollowingAt()) {
             if (a.getId() == other.getId()) {
-                return "redirect:/users";   // NOTE! if select this on profile, redirects to wrong place
+                return "redirect:/users";   // if user not following, redirects to
             }
         }
 

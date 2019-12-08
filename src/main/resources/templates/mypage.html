@@ -44,9 +44,17 @@
         <li th:each="account: ${account.getFollowingAt()}">
             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
         </li>
-        <h2>MFollowing me:</h2>
+        <h2>Following me:</h2>
         <li th:each="account: ${account.getFollowingMe()}">
             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+
+            <!-- hide follow button if already following or if profile is users own-->
+            <span th:if="${!account.getFollowingAt().contains(account)}">
+                <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
+                    <input type="submit" value="Follow">
+                </form>
+            </span>
+
         </li>
 
 
