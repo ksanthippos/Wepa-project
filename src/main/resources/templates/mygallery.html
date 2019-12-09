@@ -8,6 +8,19 @@
 <head>
     <meta charset="UTF-8">
     <title>My photo gallery!</title>
+
+    <style>
+        div.gallery {
+            margin: 15px;
+            float: left;
+            width: 250px;
+        }
+        div.gallery img {
+            width: 75%;
+            height: 75%;
+        }
+    </style>
+
 </head>
 <body>
 
@@ -19,15 +32,32 @@
 <h3 th:text="${account.getPicGallery().size()}"></h3>
 
 
+<div th:each="image: ${account.getPicGallery()}">
+    <div class="gallery">
+        <div class="row">
+            <div class="col-md-6">
+
+                <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
+                    <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" alt="image">
+                        <p th:text="${image.getDescription()}"></p>
+                    </img>
+                </a>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <br>
-
-<h2>Add image to your personal gallery:</h2>
-<form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
-    <input type="file" name="file" id="file"/>
-    <p>Description: </p><input type="text" name="description" id="description"/>
-    <input type="submit" value="Add"/>
-</form>
-
+<div>
+    <h3>Add image to your personal gallery:</h3>
+    <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
+        <input type="file" name="file" id="file"/>
+        <p>Description: </p><input type="text" name="description" id="description"/>
+        <input type="submit" value="Add"/>
+    </form>
+</div>
 <br>
 <a href="/mypage">Back to profile</a>
 

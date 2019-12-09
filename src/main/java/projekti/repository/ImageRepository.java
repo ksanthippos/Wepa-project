@@ -5,4 +5,5 @@ import projekti.model.Image;
 
 public interface ImageRepository extends JpaRepository<Image, Long> {
 
+
 }

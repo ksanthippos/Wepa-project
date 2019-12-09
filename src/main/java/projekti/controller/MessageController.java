@@ -30,10 +30,7 @@ public class MessageController {
     @PostMapping("/mypage")
     public String newMessage(@RequestParam String content) {
 
-        // user auth
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        Account me = accountRepository.findByUsername(username);
+        Account me = accountRepository.findByUsername(authenticateUser());
 
         Message message = new Message();
 
@@ -54,10 +51,7 @@ public class MessageController {
     @PostMapping("/account/{nickname}/{id}")
     public String addLike(@PathVariable String nickname, @PathVariable Long id) {
 
-        // user auth
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        Account me = accountRepository.findByUsername(username);
+        Account me = accountRepository.findByUsername(authenticateUser());
         Account other = accountRepository.findByNickname(nickname);
 
         Message message = messageRepository.getOne(id);
@@ -76,6 +70,18 @@ public class MessageController {
 
         return "redirect:/account/{nickname}";
 
+    }
+
+
+    // PRIVATE METHODS
+    // ******************
+
+    // user authentication
+    private String authenticateUser() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        return username;
     }
 
 
