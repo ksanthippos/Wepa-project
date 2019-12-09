@@ -34,7 +34,7 @@ public class AccountController {
         return "users";
     }
 
-    // mapping for URL expression .../nickname
+    // every user has own personal URL
     @GetMapping("/account/{nickname}")
     public String getFriend(Model model, @PathVariable String nickname) {
 
@@ -48,7 +48,7 @@ public class AccountController {
             return "mypage";
         }
 
-        // profile is followed --> view profile
+/*        // profile is followed --> view profile
         for (Account a: me.getFollowingAt()) {
             if (a.getId() == other.getId()) {   // account ids are unique
 
@@ -57,10 +57,20 @@ public class AccountController {
 
                 return "friendspage";
             }
-        }
+        }*/
 
+        // *********
+        // EXPERIMENT: user can see other profiles even if not following NOTE: BETTER THIS WAY!
+
+        model.addAttribute("friend", other);
+        return "friendspage";
+
+        // remove comments otherwise
+        // **********
+
+        /*
         // not following --> redirect back
-        return "redirect:/users";
+        return "redirect:/users";*/
 
     }
 

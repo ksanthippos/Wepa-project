@@ -26,8 +26,7 @@ public class ImageController {
     private AccountRepository accountRepository;
 
 
-    // OK
-    // *********************
+
     @GetMapping("/mygallery")
     public String getMyImages(Model model) {
 
@@ -57,8 +56,18 @@ public class ImageController {
         model.addAttribute("account", friend);
 
         return "friendsgallery";
+    }
+
+
+    // get single image content from repo
+    @GetMapping(path = "/gallery/{nickname}/{id}/content", produces = "image/jpeg")
+    @ResponseBody
+    public byte[] geContent(@PathVariable String nickname, @PathVariable Long id) {
+
+        return imageRepository.getOne(id).getContent();
 
     }
+
 
     // user can edit only own profile gallery
     @PostMapping("/mygallery")
@@ -83,6 +92,7 @@ public class ImageController {
         return "redirect:/mygallery/";
     }
 
+
     // PRIVATE METHODS
     // ******************
 
@@ -93,111 +103,6 @@ public class ImageController {
         String username = auth.getName();
         return username;
     }
-
-    // **************************
-
-
-  /*  // get one image
-    @GetMapping("/gallery/{nickname}/{id}")
-    public String getOne(Model model, @PathVariable String nickname, @PathVariable Long id) {
-
-        Account me = accountRepository.findByUsername(authenticateUser());
-        Account other = accountRepository.findByNickname(nickname);
-
-        // gallery belongs to user
-        if (me.getId() == other.getId()) {
-            model.addAttribute("user", me);
-        }
-        else {
-            model.addAttribute("friend", other);
-        }
-
-        model.addAttribute("imageId", id);
-
-        return "mygallery";
-    }*/
-
-
-    // get image content from repo
-    @GetMapping(path = "/gallery/{nickname}/{id}/content", produces = "image/jpeg")
-    @ResponseBody
-    public byte[] geContent(@PathVariable String nickname, @PathVariable Long id) {
-
-        return imageRepository.getOne(id).getContent();
-
-    }
-
-
-    // *******************************
-
-
-
-
-    // *************
-/*    @GetMapping("/mygallery/{id}")
-    public String getMyImages(Model model, @PathVariable Long id) {
-
-        Account me = accountRepository.findByUsername(authenticateUser());
-
-        model.addAttribute("imgid", id);
-
-        return "redirect:/gallery" + me.getNickname();
-
-    }*/
-
-    // *****************
-/*    @GetMapping("/{nickname}/gallery/{id}")
-    public String getImage(Model model, @PathVariable String nickname, @PathVariable Long id) {
-
-        Account me = accountRepository.findByUsername(authenticateUser());
-
-        if (me.getNickname().equals(nickname)) {
-
-            model.addAttribute("imgid", id);
-            return "mygallery";
-        }
-
-        Account friend = accountRepository.findByNickname(nickname);
-        model.addAttribute("name", accountRepository.findByNickname(nickname).getUsername());
-        model.addAttribute("account", friend);
-
-        return "friendsgallery";
-
-
-
-    }*/
-
-
-/*
-    // *************************************
-    // retrieve single pic from repo
-    @GetMapping(path = "/gallery/{id}/content", produces = "image/jpeg")
-    @ResponseBody
-    public byte[] getContent(@PathVariable Long id) {
-
-        return imageRepository.getOne(id).getContent();
-    }
-
-    // view one image
-    @GetMapping("/gallery/{id}")
-    public String getOne(Model model, @PathVariable Long id) {
-
-        Account user = imageRepository.getOne(id).getAccount();
-        model.addAttribute("account", user);
-        model.addAttribute("imageId", id);
-
-        return "gallery";
-    }
-
-    // view all images
-    @GetMapping("/gallery")
-    public String view() {
-        Account me = accountRepository.findByUsername(authenticateUser());
-        return "redirect:/gallery" + me.getNickname();
-    }*/
-
-
-
 
 
 }
