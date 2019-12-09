@@ -7,11 +7,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-<head>
+<head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
     <body>
+
 
         <h1 th:text="${user.getUsername() + 's profile page!'}">...whose page is this</h1>
 
@@ -81,6 +82,8 @@
         <form th:action="@{/logout}" method="post">
             <input type="submit" value="Log Out"/>
         </form>
+
+
 
 
     </body>
