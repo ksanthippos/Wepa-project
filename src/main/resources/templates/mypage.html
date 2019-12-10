@@ -13,13 +13,14 @@
 </head>
     <body>
 
-
         <h1 th:text="${user.getUsername() + 's profile page!'}">...whose page is this</h1>
 
-        <a th:href="@{/gallery/{nickname}(nickname=${user.getNickname()})}">Photo gallery</a>
+        <div>
+            <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
+                <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
+            </a>
 
-        <img src="" alt="dick pic here">
-        <br>
+        </div>
 
         <h2>Wall:</h2>
         <ul>

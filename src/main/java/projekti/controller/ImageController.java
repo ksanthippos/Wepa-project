@@ -93,6 +93,28 @@ public class ImageController {
     }
 
 
+    // setting profile picture
+    @PostMapping("/gallery/{nickname}/{id}")
+    public String setProfPic(@PathVariable String nickname, @PathVariable Long id) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
+
+        // reset first
+        for (Image i: me.getPicGallery()) {
+            i.setProfilePic(false);
+        }
+
+        imageRepository.getOne(id).setProfilePic(true);
+        me.setProfilePicId(id);
+
+        imageRepository.save(imageRepository.getOne(id));
+        accountRepository.save(me);
+
+        return "redirect:/mygallery";
+    }
+
+
+
     // PRIVATE METHODS
     // ******************
 

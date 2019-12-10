@@ -37,7 +37,6 @@
     <h2>Number of images in gallery: <h2 th:text="${account.getPicGallery().size()}"></h2></h2>
 
 
-
     <div th:each="image: ${account.getPicGallery()}">
         <div class="gallery">
             <div class="row">
@@ -45,14 +44,18 @@
 
                     <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
                         <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" alt="image">
-                        </img>
                     </a>
-                    <p th:text="${image.getDescription()}" style="font-size: small"></p>
+                    <span>
+                        <p th:text="${image.getDescription()}" style="font-size: small"></p>
+                        <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"
+                              th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic" id="setProfPic"></form>
+                    </span>
 
                 </div>
             </div>
         </div>
     </div>
+
 
 
     <div class="row">

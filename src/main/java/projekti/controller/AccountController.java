@@ -48,29 +48,8 @@ public class AccountController {
             return "mypage";
         }
 
-/*        // profile is followed --> view profile
-        for (Account a: me.getFollowingAt()) {
-            if (a.getId() == other.getId()) {   // account ids are unique
-
-                model.addAttribute("account", me);  // THIS EVEN NEEDED?
-                model.addAttribute("friend", other);    // target
-
-                return "friendspage";
-            }
-        }*/
-
-        // *********
-        // EXPERIMENT: user can see other profiles even if not following NOTE: BETTER THIS WAY!
-
         model.addAttribute("friend", other);
         return "friendspage";
-
-        // remove comments otherwise
-        // **********
-
-        /*
-        // not following --> redirect back
-        return "redirect:/users";*/
 
     }
 

@@ -16,7 +16,7 @@ public class Image extends AbstractPersistable<Long> {
 
     private String description;
     private boolean isProfilePic;
-    
+
     @ManyToOne
     private Account account;
 

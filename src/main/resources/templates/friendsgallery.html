@@ -41,9 +41,10 @@
 
                 <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
                     <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" alt="image">
-                    </img>
                 </a>
-                <p th:text="${image.getDescription()}" style="font-size: small"></p>
+                <span>
+                    <p th:text="${image.getDescription()}" style="font-size: small"></p>
+                </span>
 
             </div>
         </div>

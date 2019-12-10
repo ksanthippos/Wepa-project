@@ -17,10 +17,9 @@
 
         <h2 th:text="${friend.getUsername()}">name</h2>
 
-        <a th:href="@{/gallery/{nickname}(nickname=${friend.getNickname()})}">Photo gallery</a>
-
-        <img src="" alt="dick pic here">
-        <br>
+        <div>
+            <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${friend.getNickname()}, id=${friend.getProfilePicId()})}">
+        </div>
 
         <h2>Wall:</h2>
         <ul>

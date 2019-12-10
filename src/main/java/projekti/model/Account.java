@@ -20,6 +20,8 @@ public class Account extends AbstractPersistable<Long> {
     private String password;
     private String nickname;
 
+    private Long profilePicId;
+
 
     // ctor for creating a new account
     public Account(String username, String password, String nickname) {
@@ -43,6 +45,7 @@ public class Account extends AbstractPersistable<Long> {
 
     // NOT SURE YET..
     // *******************
+
 
     @ManyToMany
     private List<Account> followingAt = new ArrayList<>();    // all profiles this one is following
