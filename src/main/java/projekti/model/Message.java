@@ -28,8 +28,8 @@ public class Message extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "likedMessages")
     private List<Account> likedAccounts = new ArrayList<>();    // a message can have multiple likes (= number of accounts)
 
-
-    // COMMENTS ALSO !!!
+    @OneToMany(mappedBy = "message")
+    private List<Comment> comments = new ArrayList<>();     // message can have multiple comments
 
 
 }
