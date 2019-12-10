@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import projekti.model.Comment;
 import projekti.model.Message;
 import projekti.repository.AccountRepository;
 import projekti.model.Account;
@@ -136,8 +137,18 @@ public class AccountController {
         newsfeed.addAll(me.getMessageList());
         newsfeed.addAll(followedMessages);
 
+        // return comments also
+        List<Comment> comments = new ArrayList<>();
+
+        for (Message m: newsfeed) {
+            for (Comment c: m.getComments()) {
+                comments.add(c);
+            }
+        }
+
         model.addAttribute("user", me);
         model.addAttribute("newsfeed", newsfeed);
+        model.addAttribute("comments", comments);
 
     }
 

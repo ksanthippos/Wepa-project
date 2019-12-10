@@ -52,14 +52,13 @@ public class MessageController {
     public String addLike(@PathVariable String nickname, @PathVariable Long id) {
 
         Account me = accountRepository.findByUsername(authenticateUser());
-        Account other = accountRepository.findByNickname(nickname);
 
         Message message = messageRepository.getOne(id);
 
         // only one like per account
         for (Message m: me.getLikedMessages()) {
             if (m.getId() == message.getId()) {
-                return "redirect:/account/{nickname}";      // OR REVERT TO DISLIKE?
+                return "redirect:/account/{nickname}";
             }
         }
 
