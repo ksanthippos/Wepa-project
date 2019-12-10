@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<head th:replace="fragments/layout :: header">
+    <meta charset="UTF-8">
+    <title>All users</title>
+</head>
+<body>
+
+    <h2>My followers:</h2>
+    <li th:each="account: ${user.getFollowingMe()}">
+        <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+
+        <!-- hide follow button if already following or if profile is users own-->
+        <span th:if="${!user.getFollowingAt().contains(account)}">
+            <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
+                <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow">
+            </form>
+        </span>
+    </li>
+    <p></p>
+    <h2>I am following:</h2>
+    <li th:each="account: ${user.getFollowingAt()}">
+        <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+    </li>
+
+
+</body>
+</html>

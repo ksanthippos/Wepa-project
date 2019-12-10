@@ -34,6 +34,16 @@ public class AccountController {
         return "users";
     }
 
+    // list of friends (= followers & following profiles)
+    @GetMapping("/myfriends")
+    public String getAllFriends(Model model) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
+        model.addAttribute("user", me);
+
+        return "myfriends";
+    }
+
     // every user has own personal URL
     @GetMapping("/account/{nickname}")
     public String getFriend(Model model, @PathVariable String nickname) {
@@ -46,6 +56,13 @@ public class AccountController {
 
             getNewsFeed(model, me);
             return "mypage";
+        }
+
+        // check if account is following user
+        for (Account a: other.getFollowingAt()) {
+            if (me.getId() == a.getId()) {
+                model.addAttribute("isFollowing", true);
+            }
         }
 
         model.addAttribute("friend", other);

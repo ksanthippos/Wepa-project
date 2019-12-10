@@ -10,9 +10,10 @@
 </head>
     <body>
 
+        <!-- MY PFOLILE -->
         <h1 th:text="${user.getUsername() + 's profile page!'}">name</h1>
 
-        <div>
+        <div class="gallery">
             <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
             </a>
@@ -26,7 +27,7 @@
         </form>
 
 
-        <h2>Waz goin' on:</h2>
+        <h2>Tweetsfeed:</h2>
         <ul>
             <li th:each="message: ${newsfeed}">
                 <span> <p th:text="${message.getContent()}"></p>
@@ -41,22 +42,7 @@
 
         <br>
 
-        <h2>Following at:</h2>
-        <li th:each="account: ${user.getFollowingAt()}">
-            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
-        </li>
-        <h2>Following me:</h2>
-        <li th:each="account: ${user.getFollowingMe()}">
-            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
 
-            <!-- hide follow button if already following or if profile is users own-->
-            <span th:if="${!user.getFollowingAt().contains(account)}">
-                <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
-                    <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow">
-                </form>
-            </span>
-
-        </li>
 
 
     </body>
