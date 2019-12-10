@@ -3,39 +3,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<!-- TARVIIKO NÄITÄ ALLA OLEVIA TOSIAAN?-->
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 <head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
-    <title>My photo gallery!</title>
-
-    <!-- tyylit katosivat, pitää importtaa takaisin..-->
-
-    <style>
-        div.gallery {
-            margin: 15px;
-            float: left;
-            width: 300px;
-        }
-        div.gallery img {
-            width: 75%;
-            height: 75%;
-        }
-    </style>
-
+    <title>Gallery</title>
 </head>
 <body>
 
 <main class="container">
 
-    <h1 th:text="${account.getUsername()} + 's photo gallery!'">gallery owner</h1>
-
-    <h2>Number of images in gallery: <h2 th:text="${account.getPicGallery().size()}"></h2></h2>
-
+    <h1>Your photo gallery!</h1>
 
     <div th:each="image: ${account.getPicGallery()}">
         <div class="gallery">
@@ -55,8 +31,6 @@
             </div>
         </div>
     </div>
-
-
 
     <div class="row">
         <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">

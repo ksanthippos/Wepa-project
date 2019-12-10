@@ -3,23 +3,25 @@
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profile page</title>
 </head>
     <body>
 
-        <h1>This profile belongs to your friend:</h1>
+        <h1><h1 th:text="${friend.getUsername()}">name</h1>'s' profile page!</h1>
 
-        <h2 th:text="${friend.getUsername()}">name</h2>
-
+        <!--NOT WORKING YET:.....-->
+        <div th:if="${friend.followingAt.contains(user)}">
+            <h3><h3 th:text="${friend.getUsername()}"></h3> is following you.</h3>
+        </div>
+        <!--................-->
         <div>
             <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${friend.getNickname()}, id=${friend.getProfilePicId()})}">
         </div>
+
+        <h3><a th:href="@{/gallery/{nickname}(nickname=${friend.getNickname()})}")>Gallery</a></h3>
 
         <h2>Wall:</h2>
         <ul>
@@ -34,13 +36,6 @@
             </li>
         </ul>
 
-
-
-       <!-- <a href="/users">Back to friend list</a>-->
-
-<!--        <form>
-            <input type="button" value="Back" onclick="history.back()">
-        </form>-->
 
     </body>
 </html>

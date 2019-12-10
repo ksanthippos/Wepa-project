@@ -3,17 +3,14 @@
   xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
 <head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Profile page</title>
 </head>
     <body>
 
-        <h1 th:text="${user.getUsername() + 's profile page!'}">...whose page is this</h1>
+        <h1 th:text="${user.getUsername() + 's profile page!'}">name</h1>
 
         <div>
             <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
@@ -22,7 +19,14 @@
 
         </div>
 
-        <h2>Wall:</h2>
+        <h2>Post a new message:</h2>
+        <form method="POST" th:action="@{/mypage}">
+            <p>Content: </p><input type="text" name="content" id="content"/>
+            <input type="submit" value="Post"/>
+        </form>
+
+
+        <h2>Waz goin' on:</h2>
         <ul>
             <li th:each="message: ${newsfeed}">
                 <span> <p th:text="${message.getContent()}"></p>
@@ -53,38 +57,6 @@
             </span>
 
         </li>
-
-
-        <h2>Post a new message:</h2>
-        <form method="POST" th:action="@{/mypage}">
-            <p>Content: </p><input type="text" name="content" id="content"/>
-            <input type="submit" value="Post"/>
-        </form>
-
-
-
-
-
-        <!-- *********************-->
-
-
-
-
-
-<!--        <br><br>
-        <a href="/users">Back to friend list</a>
-        <br><br>-->
-
-<!--        <form>
-            <input type="button" value="Back" onclick="history.back()">
-        </form>-->
-
-
-        <form th:action="@{/logout}" method="post">
-            <input type="submit" value="Log Out"/>
-        </form>
-
-
 
 
     </body>
