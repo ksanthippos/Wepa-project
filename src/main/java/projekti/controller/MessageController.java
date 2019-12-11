@@ -47,8 +47,8 @@ public class MessageController {
 
     }
 
-    // adding like
-    @PostMapping("/account/{nickname}/{id}")
+    // adding like to a message
+    @PostMapping(value = "/account/{nickname}/{id}")
     public String addLike(@PathVariable String nickname, @PathVariable Long id) {
 
         Account me = accountRepository.findByUsername(authenticateUser());

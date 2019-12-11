@@ -49,13 +49,15 @@ public class Account extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "followingAt")
     private List<Account> followingMe = new ArrayList<>();   // all profiles that are following this profile
 
+    @OneToMany(mappedBy = "account")
+    private List<Comment> commentList = new ArrayList<>();
 
 
     // NOT SURE YET..
     // *******************
 
-    @OneToMany(mappedBy = "account")
-    private List<Comment> commentList = new ArrayList<>();
+    @ManyToMany
+    private List<Image> likedImages = new ArrayList<>();    // user can like different images but each only once
 
 
     // **************

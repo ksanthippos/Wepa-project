@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import projekti.model.Message;
 import projekti.repository.ImageRepository;
 import projekti.model.Account;
 import projekti.model.Image;
@@ -69,7 +70,7 @@ public class ImageController {
     }
 
 
-    // user can edit only own profile gallery
+    // only users can add more images
     @PostMapping("/mygallery")
     public String save(@RequestParam("file") MultipartFile file,
                        @RequestParam String description) throws IOException {
@@ -94,7 +95,7 @@ public class ImageController {
 
 
     // setting profile picture
-    @PostMapping("/gallery/{nickname}/{id}")
+    @PostMapping(value = "/gallery/{nickname}/{id}", params = "setProfPic")
     public String setProfPic(@PathVariable String nickname, @PathVariable Long id) {
 
         Account me = accountRepository.findByUsername(authenticateUser());
@@ -111,6 +112,30 @@ public class ImageController {
         accountRepository.save(me);
 
         return "redirect:/mygallery";
+    }
+
+    // adding like to an image
+    @PostMapping(value = "/gallery/{nickname}/{id}", params = "likeImg")
+    public String addLike(@PathVariable String nickname, @PathVariable Long id) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
+
+        Image image = imageRepository.getOne(id);
+
+        // only one like per account
+        for (Image i: me.getLikedImages()) {
+            if (i.getId() == image.getId()) {
+                return "redirect:/gallery/{nickname}";
+            }
+        }
+
+        image.getLikedAccounts().add(me);
+        me.getLikedImages().add(image);
+        accountRepository.save(me);
+        imageRepository.save(image);
+
+        return "redirect:/gallery/{nickname}";
+
     }
 
 

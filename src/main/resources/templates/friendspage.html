@@ -11,7 +11,7 @@
     <body>
 
         <!-- FRIENDS PFOLILE -->
-        <h1><span th:text="${friend.getUsername()} + 's profile page!'"></span></h1>
+        <h1><span th:text="${friend.getUsername()} + 's wall'"></span></h1>
 
         <div>
             <span th:if="${isFollowing}">
@@ -21,9 +21,10 @@
 
         <div class="gallery">
             <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${friend.getNickname()}, id=${friend.getProfilePicId()})}">
+            <p th:text="${friend.getUsername()}"></p>
         </div>
 
-        <h3><a th:href="@{/gallery/{nickname}(nickname=${friend.getNickname()})}")>Photo gallery</a></h3>
+        <h3><a th:href="@{/gallery/{nickname}(nickname=${friend.getNickname()})}">Photo gallery</a></h3>
 
         <h2>Tweetsfeed:</h2>
         <div>
@@ -47,13 +48,13 @@
                             <form th:action="@{/account/{nickname}/{id}(nickname=${friend.getNickname()}, id=${message.getId()})}" +
                                   th:method="POST">
                                         <p>Post a comment: </p>
-                                        <input type="text" name="cont" id="cont"/>
+                                        <input type="text" name="comMsg"/>
                                         <input type="submit" value="Post"/>
                             </form>
                         <!--LIST ALL COMMENTS-->
                             <span th:each="comment: ${message.getComments()}">
-                                <p th:text="'On ' + ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')} + '' +
-                                    ${comment.getAccount().getUsername()} + ' replied:'" style="color: crimson"></p>
+                                <p th:text="${comment.getAccount().getUsername()} + ' commented on ' +
+                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
                                 <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
                             </span>
                     </span>

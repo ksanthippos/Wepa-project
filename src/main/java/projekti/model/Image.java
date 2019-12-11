@@ -22,6 +22,9 @@ public class Image extends AbstractPersistable<Long> {
     @ManyToOne
     private Account account;    // images are linked to a certain account
 
+    @ManyToMany(mappedBy = "likedImages")
+    private List<Account> likedAccounts = new ArrayList<>();    // image can have multiple likes
+
     @OneToMany(mappedBy = "image")
     private List<Comment> commentList = new ArrayList<>();  // image can have multiple comments
 

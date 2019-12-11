@@ -36,14 +36,15 @@ public class CommentController {
     private AccountRepository accountRepository;
 
 
-    @PostMapping(value = "/account/{nickname}/{id}", params = "cont")
-    public String commentMsg(@PathVariable String nickname, @PathVariable Long id, @RequestParam String cont) {
+    // comment on message
+    @PostMapping(value = "/account/{nickname}/{id}", params = "comMsg")
+    public String commentMsg(@PathVariable String nickname, @PathVariable Long id, @RequestParam String comMsg) {
 
         Account me = accountRepository.findByUsername(authenticateUser());
         Message message = messageRepository.getOne(id);
         Comment comment = new Comment();
 
-        comment.setContent(cont);
+        comment.setContent(comMsg);
         comment.setDateTime(LocalDateTime.now());
         comment.setAccount(me);
         comment.setMessage(message);
@@ -59,14 +60,15 @@ public class CommentController {
 
     }
 
-    @PostMapping(value = "/gallery/{nickname}/{id}", params = "contImg")
-    public String commentImg(@PathVariable String nickname, @PathVariable Long id, @RequestParam String contImg) {
+    // comment on image
+    @PostMapping(value = "/gallery/{nickname}/{id}", params = "comImg")
+    public String commentImg(@PathVariable String nickname, @PathVariable Long id, @RequestParam String comImg) {
 
         Account me = accountRepository.findByUsername(authenticateUser());
         Image image = imageRepository.getOne(id);
         Comment comment = new Comment();
 
-        comment.setContent(contImg);
+        comment.setContent(comImg);
         comment.setDateTime(LocalDateTime.now());
         comment.setAccount(me);
         comment.setImage(image);

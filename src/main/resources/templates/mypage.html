@@ -6,30 +6,31 @@
 
 <head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
-    <title>Profile page</title>
+    <title>My wall</title>
 </head>
     <body>
         <!-- *************-->
         <!-- MY PROFILE -->
         <!-- *************-->
 
-        <h1 th:text="${user.getUsername() + 's profile page!'}">name</h1>
+        <h1>My wall</h1>
 
         <div class="gallery">
             <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
             </a>
+            <p th:text="${user.getUsername()}"></p>
 
         </div>
 
-        <h2>Post a new message:</h2>
+        <h2>Write on the wall:</h2>
         <form method="POST" th:action="@{/mypage}">
             <p>Content: </p><input type="text" name="content" id="content"/>
-            <input type="submit" value="Post"/>
+            <input type="submit" value="Publish"/>
         </form>
 
 
-        <h2>Tweetsfeed:</h2>
+        <h2>Tweetfeed:</h2>
         <div>
             <!--LIST ALL MESSAGES, CONTENT FIRST-->
             <span th:each="message: ${newsfeed}">
@@ -51,13 +52,13 @@
                             <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}" +
                                 th:method="POST">
                                         <p>Post a comment: </p>
-                                        <input type="text" name="cont" id="cont"/>
+                                        <input type="text" name="comMsg"/>
                                         <input type="submit" value="Post"/>
                             </form>
                             <!--LIST ALL COMMENTS-->
                             <span th:each="comment: ${message.getComments()}">
-                                <p th:text="'On ' + ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')} + '' +
-                                    ${comment.getAccount().getUsername()} + ' replied:'" style="color: crimson"></p>
+                                <p th:text="${comment.getAccount().getUsername()} + ' commented on ' +
+                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
                                 <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
                             </span>
                     </span>
