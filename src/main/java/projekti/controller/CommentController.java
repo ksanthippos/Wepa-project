@@ -14,6 +14,7 @@ import projekti.model.Image;
 import projekti.model.Message;
 import projekti.repository.AccountRepository;
 import projekti.repository.CommentRepository;
+import projekti.repository.ImageRepository;
 import projekti.repository.MessageRepository;
 
 import javax.annotation.processing.Messager;
@@ -27,6 +28,9 @@ public class CommentController {
 
     @Autowired
     private MessageRepository messageRepository;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -55,12 +59,31 @@ public class CommentController {
 
     }
 
-/*    @PostMapping("/friendspage")
-    public String commentFriendsWall(@RequestParam Message message, @RequestParam String content) {
+    @PostMapping(value = "/gallery/{nickname}/{id}", params = "contImg")
+    public String commentImg(@PathVariable String nickname, @PathVariable Long id, @RequestParam String contImg) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
+        Image image = imageRepository.getOne(id);
+        Comment comment = new Comment();
+
+        comment.setContent(contImg);
+        comment.setDateTime(LocalDateTime.now());
+        comment.setAccount(me);
+        comment.setImage(image);
+
+        image.getCommentList().add(comment);
+        me.getCommentList().add(comment);
+
+        commentRepository.save(comment);
+        imageRepository.save(image);
+        accountRepository.save(me);
+
+        return "redirect:/mygallery";
+        // vai return "redirect:/mygallery";    ????
+
+    }
 
 
-        return "redirect:/friendspage";
-    }*/
 
 
 
