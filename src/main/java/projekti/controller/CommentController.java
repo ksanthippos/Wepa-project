@@ -78,8 +78,7 @@ public class CommentController {
         imageRepository.save(image);
         accountRepository.save(me);
 
-        return "redirect:/mygallery";
-        // vai return "redirect:/mygallery";    ????
+        return "redirect:/gallery/{nickname}";
 
     }
 
