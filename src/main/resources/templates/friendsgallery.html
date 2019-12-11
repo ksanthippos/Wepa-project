@@ -12,7 +12,6 @@
 
 <h1 th:text="${name} + 's photo gallery!'">gallery owner</h1>
 
-
 <div th:each="image: ${account.getPicGallery()}">
     <div class="gallery">
         <div class="row">
@@ -23,6 +22,10 @@
                     </a>
                     <p th:text="${image.getDescription()}" style="font-size: small"></p>
                 </span>
+
+                <!-- LIKES MISSING-->
+
+
                 <span>
                     <!-- POST A COMMENT-->
                     <form th:action="@{/gallery/{nickname}/{id}/(nickname=${account.getNickname()}, id=${image.getId()})}" +

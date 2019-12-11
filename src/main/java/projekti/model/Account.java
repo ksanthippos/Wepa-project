@@ -33,22 +33,28 @@ public class Account extends AbstractPersistable<Long> {
     // THESE OK
     // ****************
 
-    // account can store multiple images and messages
+    // images
     @OneToMany(mappedBy = "account")
     private List<Image> picGallery = new ArrayList<>();
 
+    @ManyToMany
+    private List<Image> likedImages = new ArrayList<>();    // user can like different images but each only once
+
+    // messages
     @OneToMany(mappedBy = "account")
     private List<Message> messageList = new ArrayList<>();
 
     @ManyToMany
     private List<Message> likedMessages = new ArrayList<>();   // user can like different messages but each only once
 
+    // following
     @ManyToMany
     private List<Account> followingAt = new ArrayList<>();    // all profiles this one is following
 
     @ManyToMany(mappedBy = "followingAt")
     private List<Account> followingMe = new ArrayList<>();   // all profiles that are following this profile
 
+    // comments
     @OneToMany(mappedBy = "account")
     private List<Comment> commentList = new ArrayList<>();
 
@@ -56,8 +62,7 @@ public class Account extends AbstractPersistable<Long> {
     // NOT SURE YET..
     // *******************
 
-    @ManyToMany
-    private List<Image> likedImages = new ArrayList<>();    // user can like different images but each only once
+
 
 
     // **************

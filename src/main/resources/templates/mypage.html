@@ -25,12 +25,10 @@
 
         <h2>Write on the wall:</h2>
         <form method="POST" th:action="@{/mypage}">
-            <p>Content: </p><input type="text" name="content" id="content"/>
+            <input type="text" name="content" id="content"/>
             <input type="submit" value="Publish"/>
         </form>
 
-
-        <h2>Tweetfeed:</h2>
         <div>
             <!--LIST ALL MESSAGES, CONTENT FIRST-->
             <span th:each="message: ${newsfeed}">
@@ -51,9 +49,8 @@
                             <!-- POST A COMMENT-->
                             <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}" +
                                 th:method="POST">
-                                        <p>Post a comment: </p>
                                         <input type="text" name="comMsg"/>
-                                        <input type="submit" value="Post"/>
+                                        <input type="submit" value="Comment"/>
                             </form>
                             <!--LIST ALL COMMENTS-->
                             <span th:each="comment: ${message.getComments()}">
@@ -64,7 +61,7 @@
                     </span>
 
             </span>
-        <div>
+        </div>
 
         <br>
 

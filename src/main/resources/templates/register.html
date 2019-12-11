@@ -10,30 +10,36 @@
 </head>
 <body>
 
-    <!-- ERROR HANDLING IS MISING! -->
-
     <h2>Create a new account</h2>
 
-    <p></p>
     <form method="POST" th:action="@{/register}">
-        <p>
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username"/>
-        </p>
-        <p>
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password"/>
-        </p>
-        <p>
-            <label for="nickname">Nickname</label>
-            <input type="text" name="nickname" id="nickname">
-        </p>
-        <p>
-            <input type="submit" value="Create"/>
-        </p>
+        <fieldset>
+            <p>
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username"/>
+            </p>
+            <p>
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password"/>
+            </p>
+            <p>
+                <label for="nickname">Nickname</label>
+                <input type="text" name="nickname" id="nickname">
+            </p>
+            <p>
+                <input type="submit" value="Create"/>
+            </p>
+            <p>
+                * Minimum length for all credentials: 4 characters
+            </p>
+        </fieldset>
 
     </form>
 
+
+    <span>
+
+    </span>
     <div>
         <h2><a href="/login">Back to login</a> </h2>
     </div>

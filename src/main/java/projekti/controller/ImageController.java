@@ -139,6 +139,23 @@ public class ImageController {
     }
 
 
+/*    // delete image (users only)
+    @DeleteMapping(value = "/gallery/{nickname}/{id}")
+    public String deleteImage(@PathVariable String nickname, @PathVariable Long id) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
+        me.getLikedImages().remove(imageRepository.getOne(id));
+        me.getPicGallery().remove(imageRepository.getOne(id));
+
+
+        imageRepository.deleteById(id);
+        imageRepository.saveAll(imageRepository.findAll());
+        accountRepository.save(me);
+
+        return "redirect:/gallery/{nickname}";
+    }*/
+
+
 
     // PRIVATE METHODS
     // ******************

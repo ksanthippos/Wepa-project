@@ -27,13 +27,18 @@
                     <span>
                         <!--SET AS PROFILE PICTURE-->
                         <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"
-                              th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic">
+                              th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic"/>
                         </form>
+
+<!--                        &lt;!&ndash;DELETE IMAGE&ndash;&gt;
+                        <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}" +
+                              th:method="POST"><input type="submit" value="Delete"/>
+                        </form>-->
 
                             <!--ADD LIKE-->
                         <span th:text="${'Likes: ' + image.getLikedAccounts().size()}">Number of likes</span>
                         <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"  +
-                              th:method="POST"><input type="submit" value="Like" name="likeImg">
+                              th:method="POST"><input type="submit" value="Like" name="likeImg"/>
                         </form>
                     </span>
                     <span>

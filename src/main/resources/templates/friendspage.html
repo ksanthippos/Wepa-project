@@ -26,7 +26,6 @@
 
         <h3><a th:href="@{/gallery/{nickname}(nickname=${friend.getNickname()})}">Photo gallery</a></h3>
 
-        <h2>Tweetsfeed:</h2>
         <div>
             <!--LIST ALL MESSAGES, CONTENT FIRST-->
             <span th:each="message: ${friend.getMessageList()}">
