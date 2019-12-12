@@ -58,10 +58,10 @@
                                         ${#temporals.format(message.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '">message here</span>
 
                                     <!--MESSAGE LIKES-->
-                                    <span th:text="${'Likes: ' + message.getLikedAccounts().size()}">Number of likes</span>
-                                        <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}"  +
+                                    <span th:text="${'Likes: ' + message.getLikedAccounts().size()}"></span>
+                                        <!--<form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}"  +
                                               th:method="POST"><input type="submit" value="Like"></form>
-
+-->
                                 </span>
 
 
@@ -74,13 +74,18 @@
                                                         <input type="text" name="comMsg"/>
                                                         <input type="submit" value="Comment"/>
                                             </form>
+                                              <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}"  +
+                                                    th:method="POST"><input type="submit" value="Like">
+                                            </form>
+                                        </span>
+
                                             <!--LIST ALL COMMENTS-->
                                             <span th:each="comment: ${message.getComments()}">
                                                 <p th:text="${comment.getAccount().getName()} + ' commented on ' +
                                                     ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
                                                 <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
                                             </span>
-                                        </span>
+
 
                                     </div>
                                 </div>
