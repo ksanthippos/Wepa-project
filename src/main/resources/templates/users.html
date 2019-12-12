@@ -13,7 +13,7 @@
 <h1>All Tweeter users:</h1>
 
     <li th:each="account: ${accounts}">
-        <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+        <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
 
         <!-- hide follow button if already following or if profile is users own-->
         <span th:if="${!user.getFollowingAt().contains(account)}">

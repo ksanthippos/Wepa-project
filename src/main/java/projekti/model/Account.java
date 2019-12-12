@@ -16,6 +16,7 @@ import java.util.List;
 @AllArgsConstructor
 public class Account extends AbstractPersistable<Long> {
 
+    private String name;
     private String username;
     private String password;
     private String nickname;
@@ -24,7 +25,9 @@ public class Account extends AbstractPersistable<Long> {
 
 
     // ctor for creating a new account
-    public Account(String username, String password, String nickname) {
+    public Account(String name, String username, String password, String nickname) {
+
+        this.name = name;
         this.username = username;
         this.password = password;
         this.nickname = nickname;
@@ -57,15 +60,6 @@ public class Account extends AbstractPersistable<Long> {
     // comments
     @OneToMany(mappedBy = "account")
     private List<Comment> commentList = new ArrayList<>();
-
-
-    // NOT SURE YET..
-    // *******************
-
-
-
-
-    // **************
 
 
     // BLOCKING SAME STYLE AS FOLLOWING ??

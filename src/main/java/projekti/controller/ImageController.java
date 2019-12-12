@@ -58,7 +58,7 @@ public class ImageController {
 
         Account friend = accountRepository.findByNickname(nickname);
         getComments(model, friend);
-        model.addAttribute("name", friend.getUsername());
+        //model.addAttribute("name", friend.getUsername());
 
         return "friendsgallery";
     }

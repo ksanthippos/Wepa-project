@@ -13,13 +13,15 @@
         <!-- MY PROFILE -->
         <!-- *************-->
 
-        <h1>My wall</h1>
 
+        <h1>My wall</h1>
+        <h2 th:text="${user.getName()}"></h2>
+        <!--PROFILE PIC-->
         <div class="gallery">
             <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}">
             </a>
-            <p th:text="${user.getUsername()}"></p>
+            <p th:text="${user.getName()}"></p>
 
         </div>
 
@@ -36,7 +38,7 @@
                     <span> <p th:text="${message.getContent()}" style="color: darkblue; font-weight: bold"></p>
 
                         <!-- MESSAGE INFO-->
-                        <span th:text="'Posted by ' + ${message.getAccount().getUsername()} + ' on ' +
+                        <span th:text="'Posted by ' + ${message.getAccount().getName()} + ' on ' +
                             ${#temporals.format(message.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '">message here</span>
 
                         <!--MESSAGE LIKES-->
@@ -54,7 +56,7 @@
                             </form>
                             <!--LIST ALL COMMENTS-->
                             <span th:each="comment: ${message.getComments()}">
-                                <p th:text="${comment.getAccount().getUsername()} + ' commented on ' +
+                                <p th:text="${comment.getAccount().getName()} + ' commented on ' +
                                     ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
                                 <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
                             </span>

@@ -10,7 +10,7 @@
 <body>
 
 
-<h1 th:text="${name} + 's photo gallery!'">gallery owner</h1>
+<h1 th:text="${account.getName()} + 's photo gallery!'">gallery owner</h1>
 
 <div th:each="image: ${account.getPicGallery()}">
     <div class="gallery">
@@ -36,7 +36,7 @@
                     </form>
                     <!--LIST ALL COMMENTS-->
                     <span th:each="comment: ${image.getCommentList()}">
-                        <p th:text="${comment.getAccount().getUsername()} + ' commented on ' +
+                        <p th:text="${comment.getAccount().getName()} + ' commented on ' +
                             ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
                         <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
                     </span>

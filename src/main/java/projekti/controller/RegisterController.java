@@ -25,19 +25,20 @@ public class RegisterController {
     }
 
     @PostMapping("/register")
-    public String addAccount(@RequestParam String username, @RequestParam String password, @RequestParam String nickname) {
+    public String addAccount(@RequestParam String name, @RequestParam String username, @RequestParam String password, @RequestParam String nickname) {
 
-        //if (username.equals("") || password.equals("") || nickname.equals("")) {
-        if (username.length() < 4 || password.length() < 4 || nickname.length() < 4) {
+        // check for too short credentials
+        if (name.length() < 4 || username.length() < 4 || password.length() < 4 || nickname.length() < 4) {
             return "redirect:/register";
         }
 
+        // check if username or nickname is already in use
         if (accountRepository.findByUsername(username) != null || accountRepository.findByNickname(nickname) != null) {
             return "redirect:/register";
         }
 
         // credentials OK --> create a new account!
-        Account a = new Account(username, passwordEncoder.encode(password), nickname);
+        Account a = new Account(name, username, passwordEncoder.encode(password), nickname);
         accountRepository.save(a);
         return "redirect:/login";
 
