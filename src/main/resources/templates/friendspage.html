@@ -16,6 +16,16 @@
         <div>
             <span th:if="${isFollowing}">
                 <h3><span th:text="${friend.getName()} + ' is following you.'"></span></h3>
+
+                <!--BLOCKING-->
+                    <span th:if="${user.getBlockedAt().contains(friend)}">
+                        <p th:text="${'You have blocked ' + friend.getName() + '!'}"></p>
+                    </span>
+                    <span th:unless="${user.getBlockedAt().contains(friend)}">
+                        <form th:action="@{/account/{nickname}(nickname=${friend.getNickname()})}" +
+                              th:method="POST"><input type="submit" value="Block user"></form>
+                    </span>
+
             </span>
         </div>
 

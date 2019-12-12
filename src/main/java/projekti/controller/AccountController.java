@@ -100,10 +100,11 @@ public class AccountController {
         // user is already following --> redirect
         for (Account a: me.getFollowingAt()) {
             if (a.getId() == other.getId()) {
-                return "redirect:/users";   // if user not following --> redirect
+                return "redirect:/users";
             }
         }
 
+        // following conditions ok
         me.getFollowingAt().add(other);
         other.getFollowingMe().add(me);
 
@@ -112,6 +113,35 @@ public class AccountController {
 
         return "redirect:/users";
 
+
+    }
+
+    // blocking user
+    @PostMapping("/account/{nickname}")
+    public String block(@PathVariable String nickname) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
+        Account other = accountRepository.findByNickname(nickname);
+
+        if (me.getId() == other.getId()) {
+            return "redirect:/mypage";
+        }
+
+        // user is already blocked --> redirect
+        for (Account a: me.getBlockedAt()) {
+            if (a.getId() == other.getId()) {
+                return "redirect:/account/{nickname}";
+            }
+        }
+
+        // set blocking
+        me.getBlockedAt().add(other);
+        other.getBlockedMe().add(me);
+
+        accountRepository.save(me);
+        accountRepository.save(other);
+
+        return "redirect:/account/{nickname}";
     }
 
 
@@ -134,8 +164,10 @@ public class AccountController {
         // get all messages from followed accounts
         List<Message> followedMessages = new ArrayList<>();
         for (Account a: account.getFollowingAt()) {
-            for (Message m: a.getMessageList()) {
-                followedMessages.add(m);
+            if (!me.getBlockedAt().contains(a)) {   // only non-blocked-accounts messages to feed
+                for (Message m : a.getMessageList()) {
+                    followedMessages.add(m);
+                }
             }
         }
 
@@ -167,6 +199,7 @@ public class AccountController {
         }
 
         else {
+            model.addAttribute("user", me);
             model.addAttribute("friend", account);
             model.addAttribute("newsfeed", messages);
         }

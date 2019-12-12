@@ -6,8 +6,11 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Entity
@@ -62,6 +65,16 @@ public class Account extends AbstractPersistable<Long> {
     private List<Comment> commentList = new ArrayList<>();
 
 
-    // BLOCKING SAME STYLE AS FOLLOWING ??
+
+    // NOT SURE YET..
+
+    @ManyToMany
+    private List<Account> blockedAt = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "blockedAt")
+    private List<Account> blockedMe = new ArrayList<>();
+
+
+
 
 }
