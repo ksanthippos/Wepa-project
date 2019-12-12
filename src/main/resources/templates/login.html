@@ -7,39 +7,33 @@
 <head>
     <title>Welcome to Tweeter! -Login-</title>
 </head>
-<body>
+<body style="background-color: azure">
 
 <!-- MAKE THIS LOOK NICER-->
-<h2>Please log in</h2>
-<div>
-    <form name="f" th:action="@{/login}" method="post">
-        <fieldset>
-            <!--<legend>Please Log in:</legend>-->
-                <div th:if="${param.error}" class="alert alert-error">
-                    Invalid username and password.
-                </div>
-                <div th:if="${param.logout}" class="alert alert-success">
-                    You have been logged out.
-                </div>
-                <p>
-                    <label for="username">Username</label>
-                    <input type="text" id="username" name="username"/>
-                </p>
-                <p>
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password"/>
-                </p>
-                <p>
-    <!--            <div class="form-actions">
-                    <button type="submit" class="btn">Log in</button>
-                </div>-->
-                    <input type="submit" value="Log in"/>
-                </p>
-        </fieldset>
-    </form>
 
-    <div>
-        <h3>New user? Register <a href="/register">here!</a></h3>
+<div class="container">
+    <h2 style="margin-left: 0; margin-bottom: 20px; margin-top: 20px">Please log in</h2>
+    <div class="form-group">
+            <form name="f" th:action="@{/login}" method="post">
+                    <div th:if="${param.error}" class="alert alert-error" style="background-color: #ff5769">
+                        Invalid username and password.
+                    </div>
+                    <div th:if="${param.logout}" class="alert alert-success">
+                        You have been logged out.
+                    </div>
+                    <p>
+                        <input type="text" id="username" name="username" class="form-control" placeholder="Username"/>
+                    </p>
+                    <p>
+                        <input type="password" id="password" name="password" class="form-control" placeholder="Password"/>
+                    </p>
+                    <p>
+                        <input type="submit" value="Log in" class="btn btn-primary"/>
+                    </p>
+            </form>
+        <div>
+            <p>New user? Register <a href="/register">here!</a></p>
+        </div>
     </div>
 </div>
 </body>

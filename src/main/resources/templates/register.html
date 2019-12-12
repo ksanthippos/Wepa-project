@@ -8,44 +8,42 @@
     <meta charset="UTF-8" />
     <title>Welcome to Tweeter! -Register-</title>
 </head>
-<body>
+<body style="background-color: azure">
 
-    <h2>Create a new account</h2>
+<div class="container">
+    <h2 style="margin-left: 0; margin-bottom: 20px; margin-top: 20px">Create a new account</h2>
+    <div class="form-group">
+            <form method="POST" th:action="@{/register}">
 
-    <form method="POST" th:action="@{/register}">
-        <fieldset>
-            <p>
-                <label for="name">Name</label>
-                <input type="text" name="name" id="name"/>
-            </p>
-            <p>
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username"/>
-            </p>
-            <p>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password"/>
-            </p>
-            <p>
-                <label for="nickname">Nickname</label>
-                <input type="text" name="nickname" id="nickname">
-            </p>
-            <p>
-                <input type="submit" value="Create"/>
-            </p>
-            <p>
-                * Minimum length for all credentials: 4 characters
-            </p>
-        </fieldset>
+                    <p>
+                        <label for="name">Name</label>
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Your first and last name"/>
+                    </p>
+                    <p>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" class="form-control" placeholder="Choose a username"/>
+                    </p>
+                    <p>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="Choose a password"/>
+                    </p>
+                    <p>
+                        <label for="nickname">Nickname</label>
+                        <input type="text" name="nickname" id="nickname" class="form-control" placeholder="Choose a nickname for a unique profile page URL">
+                    </p>
+                    <p>
+                        <input type="submit" value="Create" class="btn btn-primary"/>
+                    </p>
 
-    </form>
+            </form>
+        <p style="font-size: small">(All fields must have 4 characters as a minimum length)</p>
 
-
-    <span>
-
-    </span>
-    <div>
-        <h2><a href="/login">Back to login</a> </h2>
     </div>
+    <div>
+        <p><a href="/login">Back to login</a> </p>
+    </div>
+</div>
+
+
 </body>
 </html>
