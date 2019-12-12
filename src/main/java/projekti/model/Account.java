@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -35,8 +34,6 @@ public class Account extends AbstractPersistable<Long> {
         this.nickname = nickname;
     }
 
-    // THESE OK
-    // ****************
 
     // images
     @OneToMany(mappedBy = "account")
@@ -52,12 +49,19 @@ public class Account extends AbstractPersistable<Long> {
     @ManyToMany
     private List<Message> likedMessages = new ArrayList<>();   // user can like different messages but each only once
 
-    // following
+    // following accounts
     @ManyToMany
     private List<Account> followingAt = new ArrayList<>();    // all profiles this one is following
 
     @ManyToMany(mappedBy = "followingAt")
     private List<Account> followingMe = new ArrayList<>();   // all profiles that are following this profile
+
+    // following start dates
+    @ManyToMany
+    private Map<String, Account> followingAtDate = new HashMap<>();
+
+    @ManyToMany
+    private Map<String, Account> followingMeDate = new HashMap<>();
 
     // blocking
     @ManyToMany
@@ -69,14 +73,6 @@ public class Account extends AbstractPersistable<Long> {
     // comments
     @OneToMany(mappedBy = "account")
     private List<Comment> commentList = new ArrayList<>();
-
-
-    // NOT SURE YET...
-    @ManyToMany
-    private Map<String, Account> followingAtDate = new HashMap<>();
-
-    @ManyToMany
-    private Map<String, Account> followingMeDate = new HashMap<>();
 
 
 

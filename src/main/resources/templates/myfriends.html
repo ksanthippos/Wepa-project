@@ -13,7 +13,7 @@
     <h2>My followers:</h2>
     <span th:each="account: ${user.getFollowingMe()}">
 
-           <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+           <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
 
            <!--FOLLOW DATES-->
            <p>
@@ -37,7 +37,7 @@
     <h2>I am following:</h2>
     <span th:each="account: ${user.getFollowingAt()}">
         <p>
-            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getUsername()}">name</a>
+            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
         </p>
     </span>
 
