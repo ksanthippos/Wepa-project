@@ -14,7 +14,10 @@ import projekti.repository.AccountRepository;
 import projekti.model.Account;
 import projekti.repository.MessageRepository;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -66,7 +69,7 @@ public class AccountController {
             }
         }
 
-        model.addAttribute("friend", other);
+        getNewsFeed(model, other);
         return "friendspage";
 
     }
@@ -124,22 +127,49 @@ public class AccountController {
     }
 
     // all messages from followed profiles to list and to model
-    private void getNewsFeed(Model model, Account me) {
+    private void getNewsFeed(Model model, Account account) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
 
         // get all messages from followed accounts
         List<Message> followedMessages = new ArrayList<>();
-        for (Account a: me.getFollowingAt()) {
+        for (Account a: account.getFollowingAt()) {
             for (Message m: a.getMessageList()) {
                 followedMessages.add(m);
             }
         }
 
-        List<Message> newsfeed = new ArrayList<>();
-        newsfeed.addAll(me.getMessageList());
-        newsfeed.addAll(followedMessages);
+        List<Message> messages = new ArrayList<>();
+        messages.addAll(account.getMessageList());
+        messages.addAll(followedMessages);
 
-        model.addAttribute("user", me);
-        model.addAttribute("newsfeed", newsfeed);
+        // messages sorted by date (newest first), only 25 messages max on a wall
+        Collections.sort(messages, Comparator.comparing(message -> message.getDateTime()));
+        Collections.reverse(messages);
+        if (messages.size() > 25) {
+            messages = messages.subList(0, 25);
+        }
+
+        // only 10 comments max per message
+        for (Message m: messages) {
+            Collections.sort(m.getComments(), Comparator.comparing(comment -> comment.getDateTime()));
+            Collections.reverse(m.getComments());
+
+            if (m.getComments().size() > 10) {
+
+                m.getComments().subList(10, m.getComments().size()).clear();
+            }
+        }
+
+        if (me.getId() == account.getId()) {
+            model.addAttribute("user", account);
+            model.addAttribute("newsfeed", messages);
+        }
+
+        else {
+            model.addAttribute("friend", account);
+            model.addAttribute("newsfeed", messages);
+        }
 
     }
 

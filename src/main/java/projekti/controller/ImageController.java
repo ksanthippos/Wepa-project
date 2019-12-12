@@ -16,6 +16,10 @@ import projekti.model.Image;
 import projekti.repository.AccountRepository;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 public class ImageController {
@@ -48,13 +52,13 @@ public class ImageController {
         // if user clicks his own profile from the list --> own profile is shown
         if (me.getNickname().equals(nickname)) {
 
-            model.addAttribute("account", me);
+            getComments(model, me); // private method
             return "mygallery";
         }
 
         Account friend = accountRepository.findByNickname(nickname);
-        model.addAttribute("name", accountRepository.findByNickname(nickname).getUsername());
-        model.addAttribute("account", friend);
+        getComments(model, friend);
+        model.addAttribute("name", friend.getUsername());
 
         return "friendsgallery";
     }
@@ -77,8 +81,8 @@ public class ImageController {
 
         Account me = accountRepository.findByUsername(authenticateUser());
 
-        // accept only .jpeg
-        if (file.getContentType().equals("image/jpeg")) {
+        // accept only .jpeg format and 10 images max per gallery
+        if (file.getContentType().equals("image/jpeg") && me.getPicGallery().size() < 10) {
             Image i = new Image();
             i.setContent(file.getBytes());
             i.setDescription(description);
@@ -88,9 +92,13 @@ public class ImageController {
             imageRepository.save(i);
             accountRepository.save(me);
 
+            return "redirect:/mygallery/";
         }
 
-        return "redirect:/mygallery/";
+        else {
+            return "redirect:/mygallery/";
+        }
+
     }
 
 
@@ -166,6 +174,29 @@ public class ImageController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         return username;
+    }
+
+    // only 10 comments max per image
+    private void getComments(Model model, Account account) {
+
+        Account me = accountRepository.findByUsername(authenticateUser());
+
+        for (Image m: account.getPicGallery()) {
+            Collections.sort(m.getCommentList(), Comparator.comparing(comment -> comment.getDateTime()));
+            Collections.reverse(m.getCommentList());
+
+            if (m.getCommentList().size() > 10) {
+                m.getCommentList().subList(10, m.getCommentList().size()).clear();
+            }
+        }
+
+        if (me.getId() == account.getId()) {
+            model.addAttribute("account", me);
+        }
+
+        else {
+            model.addAttribute("account", account);
+        }
     }
 
 

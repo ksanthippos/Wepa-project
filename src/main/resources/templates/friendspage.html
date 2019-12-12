@@ -28,7 +28,7 @@
 
         <div>
             <!--LIST ALL MESSAGES, CONTENT FIRST-->
-            <span th:each="message: ${friend.getMessageList()}">
+            <span th:each="message: ${newsfeed}">
 
                     <span> <p th:text="${message.getContent()}" style="color: darkblue; font-weight: bold"></p>
 
