@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.thymeleaf.extras.java8time.expression.Temporals;
 import projekti.model.Comment;
 import projekti.model.Message;
 import projekti.repository.AccountRepository;
@@ -15,6 +16,7 @@ import projekti.model.Account;
 import projekti.repository.MessageRepository;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -104,9 +106,18 @@ public class AccountController {
             }
         }
 
-        // following conditions ok
+        // conditions ok, set to follow
         me.getFollowingAt().add(other);
         other.getFollowingMe().add(me);
+
+        // set following time
+        LocalDateTime time = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
+        String timeAsString = time.format(formatter);
+
+        me.getFollowingAtDate().put(timeAsString, other);
+        other.getFollowingMeDate().put(timeAsString, me);
 
         accountRepository.save(me);
         accountRepository.save(other);

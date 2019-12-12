@@ -26,7 +26,6 @@ public class Account extends AbstractPersistable<Long> {
 
     private Long profilePicId;
 
-
     // ctor for creating a new account
     public Account(String name, String username, String password, String nickname) {
 
@@ -60,19 +59,27 @@ public class Account extends AbstractPersistable<Long> {
     @ManyToMany(mappedBy = "followingAt")
     private List<Account> followingMe = new ArrayList<>();   // all profiles that are following this profile
 
-    // comments
-    @OneToMany(mappedBy = "account")
-    private List<Comment> commentList = new ArrayList<>();
-
-
-
-    // NOT SURE YET..
-
+    // blocking
     @ManyToMany
     private List<Account> blockedAt = new ArrayList<>();
 
     @ManyToMany(mappedBy = "blockedAt")
     private List<Account> blockedMe = new ArrayList<>();
+
+    // comments
+    @OneToMany(mappedBy = "account")
+    private List<Comment> commentList = new ArrayList<>();
+
+
+    // NOT SURE YET...
+    @ManyToMany
+    private Map<String, Account> followingAtDate = new HashMap<>();
+
+    @ManyToMany
+    private Map<String, Account> followingMeDate = new HashMap<>();
+
+
+
 
 
 
