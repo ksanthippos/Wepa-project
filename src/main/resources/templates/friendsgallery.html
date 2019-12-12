@@ -23,7 +23,11 @@
                     <p th:text="${image.getDescription()}" style="font-size: small"></p>
                 </span>
 
-                <!-- LIKES MISSING-->
+                <!--ADD LIKE-->
+                <span th:text="${'Likes: ' + image.getLikedAccounts().size()}">Number of likes</span>
+                <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"  +
+                      th:method="POST"><input type="submit" value="Like" name="likeImg"/>
+                </form>
 
 
                 <span>

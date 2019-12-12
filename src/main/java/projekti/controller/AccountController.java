@@ -17,10 +17,7 @@ import projekti.repository.MessageRepository;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class AccountController {
@@ -175,10 +172,21 @@ public class AccountController {
         // get all messages from followed accounts
         List<Message> followedMessages = new ArrayList<>();
         for (Account a: account.getFollowingAt()) {
-            if (!me.getBlockedAt().contains(a)) {   // only non-blocked-accounts messages to feed
+            if (!me.getBlockedAt().contains(a)) {   // blocked users messages not shown
                 for (Message m : a.getMessageList()) {
                     followedMessages.add(m);
                 }
+            }
+        }
+
+        // if user is blocked by someone, remove also blockers messages
+        Iterator iterator = followedMessages.iterator();
+        Message iterMessage;
+
+        while (iterator.hasNext()){
+            iterMessage = (Message) iterator.next();
+            if (iterMessage.getAccount().getBlockedAt().contains(me)) {
+                iterator.remove();
             }
         }
 
