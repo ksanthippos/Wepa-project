@@ -38,41 +38,57 @@
             <div class="col-8">
 
                 <h2>Share your thoughts:</h2>
+
                 <form method="POST" th:action="@{/mypage}">
                     <input type="text" name="content" id="content"/>
                     <input type="submit" value="Publish"/>
                 </form>
 
-                <!--LIST ALL MESSAGES, CONTENT FIRST-->
-                <span th:each="message: ${newsfeed}">
 
-                        <span> <p th:text="${message.getContent()}" style="color: darkblue; font-weight: bold"></p>
+                <div class="media-border p-3">
 
-                            <!-- MESSAGE INFO-->
-                            <span th:text="'Posted by ' + ${message.getAccount().getName()} + ' on ' +
-                                ${#temporals.format(message.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '">message here</span>
+                    <div class="media-body">
+                        <!--LIST ALL MESSAGES, CONTENT FIRST-->
+                        <span th:each="message: ${newsfeed}">
 
-                            <!--MESSAGE LIKES-->
-                            <span th:text="${'Likes: ' + message.getLikedAccounts().size()}">Number of likes</span>
-                                <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}"  +
-                                      th:method="POST"><input type="submit" value="Like"></form>
+                                <span> <p th:text="${message.getContent()}" style="color: darkblue; font-weight: bold"></p>
 
+                                    <!-- MESSAGE INFO-->
+                                    <span th:text="'Posted by ' + ${message.getAccount().getName()} + ' on ' +
+                                        ${#temporals.format(message.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '">message here</span>
+
+                                    <!--MESSAGE LIKES-->
+                                    <span th:text="${'Likes: ' + message.getLikedAccounts().size()}">Number of likes</span>
+                                        <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}"  +
+                                              th:method="POST"><input type="submit" value="Like"></form>
+
+                                </span>
+
+
+                                <div class="media-border p-3">
+                                    <div class="media-body">
+                                        <span>
+                                            <!-- POST A COMMENT-->
+                                            <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}" +
+                                                th:method="POST">
+                                                        <input type="text" name="comMsg"/>
+                                                        <input type="submit" value="Comment"/>
+                                            </form>
+                                            <!--LIST ALL COMMENTS-->
+                                            <span th:each="comment: ${message.getComments()}">
+                                                <p th:text="${comment.getAccount().getName()} + ' commented on ' +
+                                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
+                                                <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
+                                            </span>
+                                        </span>
+
+                                    </div>
+                                </div>
                         </span>
-                        <span>
-                            <!-- POST A COMMENT-->
-                            <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}" +
-                                th:method="POST">
-                                        <input type="text" name="comMsg"/>
-                                        <input type="submit" value="Comment"/>
-                            </form>
-                            <!--LIST ALL COMMENTS-->
-                            <span th:each="comment: ${message.getComments()}">
-                                <p th:text="${comment.getAccount().getName()} + ' commented on ' +
-                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
-                                <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
-                            </span>
-                        </span>
-                </span>
+
+                    </div>
+
+                </div>
 
             </div>
 
