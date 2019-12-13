@@ -94,6 +94,11 @@
             <scope>test</scope>
         </dependency>
 
+        <!--Postgre SQL-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
 
 
     
