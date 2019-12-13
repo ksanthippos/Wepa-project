@@ -1,4 +1,4 @@
-package projekti.security;
+package ignored;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.Ordered;
