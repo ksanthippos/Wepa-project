@@ -8,20 +8,21 @@
     <meta charset="UTF-8">
     <title>My wall</title>
 </head>
-    <body style="background-color: beige">
+    <body style="background-color: azure">
 
         <!-- *************-->
         <!-- MY PROFILE -->
         <!-- *************-->
 
-    <div class="jumbotron text-center" style="background-color: azure">
+    <div class="jumbotron text-center" style="background-color: #c7f3ff">
         <h1>Welcome to Tweeter!</h1>
         <p style="font-style: italic">- A place for sharing your true thoughts! -</p>
     </div>
 
-    <div class="container-md">
+    <div class="container-lg">
 
         <div class="row">
+
             <div class="col-4">
 
                 <!--PROFILE PIC & INFO CARD-->
@@ -43,40 +44,39 @@
                 <div class="form-group">
                 <form method="POST" th:action="@{/mypage}">
                     <input type="text" name="content" id="content" placeholder="Whats's up?" class="form-control"/>
-                    <input type="submit" value="Post" class="btn btn-outline-primary" style="margin-top: 5px"/>
+                    <input type="submit" value="Post" class="btn btn-outline-primary" style="margin-top: 10px"/>
 
                 </form>
                 </div>
                 <!-- MESSAGE LIST, COMMENTS & LIKES-->
-                <div class="media-border p-3" style="background-color: antiquewhite">
+                <div class="media-border p-3" style="background-color: #9bf7ba">
 
                     <div class="media-body">
                         <!--LIST ALL MESSAGES, CONTENT FIRST-->
                         <span th:each="message: ${newsfeed}">
 
+                                    <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${message.getAccount().getNickname()}, id=${message.getAccount().getProfilePicId()})}" +
+                                         alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 30px"/>
 
-
-                                    <p th:text="${message.getContent()}" style="color: darkblue; font-size: large">
-                                          <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}"  +
-                                                th:method="POST"><input type="submit" value="Like" class="btn btn-outline-success">
-                                            </form>
-                                    </p>
+                                    <p th:text="${message.getContent()}" style="color: darkblue; font-size: large"></p>
 
                                     <!-- MESSAGE INFO-->
                                     <span th:text="'Posted by ' + ${message.getAccount().getName()} + ' on ' +
                                         ${#temporals.format(message.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '" style="font-style: italic; font-size: small; margin-bottom: 10px">Post date</span>
 
                                     <!--MESSAGE LIKES-->
-                                    <span th:text="${'Likes: ' + message.getLikedAccounts().size()}" style="background-color: lavender; margin-bottom: 10px">Like</span>
+                                    <span class="badge" th:text="${'Likes: ' + message.getLikedAccounts().size()}" style="background-color: #7dd699; margin-bottom: 10px">Like</span>
 
+                                           <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}"  +
+                                                 th:method="POST"><input type="submit" value="Like" class="btn btn-outline-success" style="margin-bottom: 10px">
+                                            </form>
 
-                                <div class="media-border p-3" style="background-color: aliceblue">
+                                <div class="media-border p-3" style="background-color: #c7f3ff">
 
 
                                     <!-- TÄYTYY VIELÄ TSIIGATA TÄTÄ...-->
                                     <!-- SMALL ROUNDED PIC ICON-->
-                                    <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${user.getNickname()}, id=${user.getProfilePicId()})}" +
-                                         alt="Profile picture" class="mr-3 mt-3 rounded-circle" style="width: 60px"/>
+
 
                                     <div class="media-body">
 
@@ -84,15 +84,20 @@
                                             <form th:action="@{/account/{nickname}/{id}(nickname=${user.getNickname()}, id=${message.getId()})}" +
                                                 th:method="POST">
                                                         <input type="text" name="comMsg" placeholder="Add a comment" class="form-control"/>
-                                                        <input type="submit" value="Post" class="btn btn-outline-warning" style="margin-bottom: 5px"/>
+                                                        <input type="submit" value="Post" class="btn btn-outline-primary" style="margin-top: 10px"/>
                                             </form>
 
 
                                             <!--LIST ALL COMMENTS-->
                                             <span th:each="comment: ${message.getComments()}">
-                                                <p th:text="${comment.getAccount().getName()} + ' commented on ' +
-                                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="font-style: italic; font-size: small"></p>
+
+                                                <p>
+                                                <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${comment.getAccount().getNickname()}, id=${comment.getAccount().getProfilePicId()})}" +
+                                                     alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 30px"/>
                                                 <p th:text="${comment.getContent()}" style="color: crimson"></p>
+                                                <span th:text="'Posted by ' + ${comment.getAccount().getName()} + ' on ' +
+                                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '" style="font-style: italic; font-size: small">Post date</span>
+                                                </p>
                                             </span>
 
 
