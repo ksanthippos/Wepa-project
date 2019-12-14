@@ -29,6 +29,7 @@ public class Image extends AbstractPersistable<Long> {
     @OneToMany(mappedBy = "image")
     private List<Comment> commentList = new ArrayList<>();  // image can have multiple comments
 
+
 /*    @Lob*/
     @Basic(fetch = FetchType.LAZY)
     @Type(type = "org.hibernate.type.BinaryType")
