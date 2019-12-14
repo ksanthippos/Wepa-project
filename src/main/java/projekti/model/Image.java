@@ -3,6 +3,7 @@ package projekti.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Type;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import projekti.model.Account;
 
@@ -29,6 +30,8 @@ public class Image extends AbstractPersistable<Long> {
     private List<Comment> commentList = new ArrayList<>();  // image can have multiple comments
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Type(type = "org.hibernate.type.BinaryType")
     private byte[] content;     // image content (data) is converted to array form
 
 
