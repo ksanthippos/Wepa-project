@@ -32,7 +32,9 @@
                          alt="Profile picture"/>
                     <div class="card-body">
                         <h4 class="card-title"><p th:text="${user.getName()}"></p></h4>
+                        <a th:href="@{/gallery/{nickname}(nickname=${user.getNickname()})}">Change profile picture</a>
                     </div>
+
                 </div>
 
 

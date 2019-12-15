@@ -8,22 +8,70 @@
     <meta charset="UTF-8">
     <title>All users</title>
 </head>
+
 <body>
 
-<h1>All Tweeter users:</h1>
+<div class="jumbotron text-center" style="background-color: #c7f3ff">
+    <h1>All Tweeter users</h1>
+</div>
 
-    <li th:each="account: ${accounts}">
-        <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
+<div class="container-lg">
 
-        <!-- hide follow button if already following or if profile is users own-->
-        <span th:if="${!user.getFollowingAt().contains(account)}">
-            <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
-                <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow">
-            </form>
-        </span>
+    <!--<input type="text" placeholder="Search for users" id="searchInput" onkeyup="searchFunction()" class="form-control" style="margin-bottom: 20px">-->
 
-    </li>
-    </ol>
+    <table class="table table-hover" id="usersTable" th:each="account: ${accounts}">
+        <tbody>
+            <tr>
+                <td>
+                    <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${account.getProfilePicId()})}" +
+                         alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 30px; height: 30px; margin-bottom: 15px"/>
+
+                    <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
+
+                    <!-- hide follow button if already following or if profile is users own-->
+                    <span th:if="${!user.getFollowingAt().contains(account)}">
+                        <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
+                            <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow">
+                        </form>
+                    </span>
+                    <span th:if="${account.equals(user)}">
+                        <p>Your profile</p>
+                    </span>
+                    <span th:if="${!account.equals(user) && user.getFollowingAt().contains(account)}">
+                        <p></p>
+                    </span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+<!--    <script>
+        function searchFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("usersTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>-->
+
+</div>
+
+
 
 </body>
 </html>
