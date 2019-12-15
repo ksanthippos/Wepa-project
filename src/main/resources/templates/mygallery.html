@@ -26,79 +26,114 @@
         </div>
         <div class="col-6">
 
-            <p><h4>Add new picture</h4><form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
-               <input type="file" name="file" id="file" class="btn btn-primary"  style="background-color: rgba(145,160,255,0.23)"/></p>
-                <input type="text" name="description" id="description" placeholder="Add a description" class="form-control" style="margin-bottom: 15px"/>
-                <input type="submit" value="Add" class="btn btn-outline-primary" style="background-color: rgba(145,160,255,0.23) "/>
-            </form>
+
         </div>
     </div>
 </div>
 
 <div class="container">
 
-    <div class="row" style="gallery">
+    <div class="row">
 
-        <div th:each="image: ${account.getPicGallery()}">
+        <div class="col-6">
 
 
-                <div class="col-4">
+                    <div th:each="image: ${account.getPicGallery()}">
 
-                                    <div class="card">
+                            <div class="card" style="margin-top: 20px; margin-right: 20px; padding: 10px; background-color: #9bf7ba">
 
                                         <div class="card-img-top">
 
+                                            <p th:text="${image.getDescription()}" style="font-style: italic; color: darkred"></p>
                                             <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
                                                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" +
-                                                     class="img-thumbnail">
+                                                     class="img-thumbnail" style="margin-bottom: 10px">
                                             </a>
 
 
-                                            <p th:text="${image.getDescription()}" style="font-size: small"></p>
 
                                         </div>
 
                                         <div>
                                             <!--SET AS PROFILE PICTURE-->
                                             <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"
-                                                  th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic"/>
+                                                  th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic" +
+                                                    class="form-control; btn btn-outline-primary" style="margin-bottom: 7px"/>
                                             </form>
-
 
                                             <!--ADD LIKE-->
-                                            <span th:text="${'Likes: ' + image.getLikedAccounts().size()}">Number of likes</span>
+                                            <span th:text="${'Likes: ' + image.getLikedAccounts().size()}" class="badge badge-success" style="margin-bottom: 10px">Number of likes</span>
                                             <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"  +
-                                                  th:method="POST"><input type="submit" value="Like" name="likeImg"/>
+                                                  th:method="POST"><input type="submit" class="btn btn-outline-success" value="Like" name="likeImg" +
+                                                      style="margin-bottom: 10px"/>
                                             </form>
                                         </div>
-                                        <div>
-                                            <!-- POST A COMMENT-->
+
+                                <div class="media-border p-3" style="background-color: #c7f3ff">
+
+                                    <div class="media-body">
+
+                                        <!-- POST A COMMENT-->
+                                        <form th:action="@{/gallery/{nickname}/{id}/(nickname=${account.getNickname()}, id=${image.getId()})}" +
+                                              th:method="POST">
+                                            <input type="text" name="comImg" placeholder="Add a comment" class="form-control"/>
+                                            <input type="submit" value="Post" class="btn btn-outline-primary" style="margin-top: 10px; margin-bottom: 10px"/>
+                                        </form>
+
+                                        <span th:each="comment: ${image.getCommentList()}">
+                                                               <!--<p th:text="${comment.getAccount().getName()} + ' commented on ' +
+                                                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
+                                                                <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>-->
+                                            <p th:text="${comment.getContent()}" style="color: crimson"></p>
+                                            <span th:text="'Posted by ' + ${comment.getAccount().getName()} + ' on ' +
+                                                ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '" style="font-style: italic; font-size: small">Post date</span>
+                                            </p>
+                                            </span>
+
+
+                                    </div>
+                                </div>
+
+                                        <!--<div>
+                                            &lt;!&ndash; POST A COMMENT&ndash;&gt;
                                             <form th:action="@{/gallery/{nickname}/{id}/(nickname=${account.getNickname()}, id=${image.getId()})}" +
                                                   th:method="POST">
                                                 <p>Post a comment: </p>
                                                 <input type="text" name="comImg"/>
                                                 <input type="submit" value="Post"/>
                                             </form>
-                                            <!--LIST ALL COMMENTS-->
+                                            &lt;!&ndash;LIST ALL COMMENTS&ndash;&gt;
                                             <span th:each="comment: ${image.getCommentList()}">
                                                                <p th:text="${comment.getAccount().getName()} + ' commented on ' +
                                                                     ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
                                                                 <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
                                             </span>
-                                        </div>
+                                        </div>-->
 
 
-                                    </div>
-
-
-
-
-
-
-
+                            </div>
 
 
                 </div>
+
+        </div>
+
+        <div class="col-6">
+
+            <p>
+            <h4>Add new picture</h4>
+
+            <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data"></form>
+            </p>
+
+            <input type="file" name="file" id="file"  style="background-color: rgba(145,160,255,0.23); margin-bottom: 15px"/>
+
+
+                <input type="text" name="description" id="description" placeholder="Add a description" class="form-control" style="margin-bottom: 15px"/>
+
+                <input type="submit" value="Add" class="btn btn-outline-primary" style="background-color: rgba(145,160,255,0.23)"/>
+
+
 
         </div>
 
