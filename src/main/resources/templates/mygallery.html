@@ -6,13 +6,6 @@
 <head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
     <title>Gallery</title>
-
-    <style>
-        .gallery {
-            height: 75%;
-            width:  75%;
-        }
-    </style>
 </head>
 
 
@@ -21,7 +14,7 @@
 
 <div class="jumbotron" style="background-color: #c7f3ff">
 
-            <h1 align="center">Your photo gallery</h1>
+    <h1 align="center">Your photo gallery</h1>
 
 </div>
 
@@ -31,35 +24,35 @@
     <div class="row">
 
         <div class="col-sm-6">
+                <div th:each="image: ${account.getPicGallery()}">
+                        <div class="card" style="margin-top: 20px; margin-right: 20px; padding: 10px; background-color: #9bf7ba">
 
-                    <div th:each="image: ${account.getPicGallery()}">
+                            <div class="card-img-top">
 
-                            <div class="card" style="margin-top: 20px; margin-right: 20px; padding: 10px; background-color: #9bf7ba">
+                                <p th:text="${image.getDescription()}" style="font-style: italic; color: darkred"></p>
+                                <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
+                                    <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" +
+                                         class="img-thumbnail" style="margin-bottom: 10px">
+                                </a>
 
-                                        <div class="card-img-top">
+                            </div>
 
-                                            <p th:text="${image.getDescription()}" style="font-style: italic; color: darkred"></p>
-                                            <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
-                                                <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" +
-                                                     class="img-thumbnail" style="margin-bottom: 10px">
-                                            </a>
+                            <div class="card-body">
 
-                                        </div>
+                                <div>
+                                    <!--SET AS PROFILE PICTURE-->
+                                    <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"
+                                          th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic" +
+                                            class="form-control; btn btn-outline-primary" style="margin-bottom: 7px"/>
+                                    </form>
 
-                                        <div>
-                                            <!--SET AS PROFILE PICTURE-->
-                                            <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"
-                                                  th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic" +
-                                                    class="form-control; btn btn-outline-primary" style="margin-bottom: 7px"/>
-                                            </form>
-
-                                            <!--ADD LIKE-->
-                                            <span th:text="${'Likes: ' + image.getLikedAccounts().size()}" class="badge badge-success" style="margin-bottom: 10px">Number of likes</span>
-                                            <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"  +
-                                                  th:method="POST"><input type="submit" class="btn btn-outline-success" value="Like" name="likeImg" +
-                                                      style="margin-bottom: 10px"/>
-                                            </form>
-                                        </div>
+                                    <!--ADD LIKE-->
+                                    <span th:text="${'Likes: ' + image.getLikedAccounts().size()}" class="badge badge-success" style="margin-bottom: 10px">Number of likes</span>
+                                    <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"  +
+                                          th:method="POST"><input type="submit" class="btn btn-outline-success" value="Like" name="likeImg" +
+                                              style="margin-bottom: 10px"/>
+                                    </form>
+                                </div>
 
                                 <div class="media-border p-3" style="background-color: #c7f3ff">
 
@@ -81,17 +74,10 @@
                                                 ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '" style="font-style: italic; font-size: small">Post date</span>
                                             </p>
                                             </span>
-
-
                                     </div>
                                 </div>
-
-
-
-
                             </div>
-
-
+                        </div>
                 </div>
 
         </div>
