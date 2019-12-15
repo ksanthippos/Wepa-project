@@ -6,7 +6,19 @@
 <head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
     <title>Gallery</title>
+
+    <style>
+
+        .gallery {
+            height: 75%;
+            width:  75%;
+        }
+
+    </style>
 </head>
+
+
+
 <body>
 
 <div class="jumbotron">
@@ -25,65 +37,75 @@
 </div>
 
 <div class="container">
-<span th:each="image: ${account.getPicGallery()}">
+
+
     <div class="row">
 
-            <div class="col-4">
+
+
+        <div class="row">
+
+                <div class="col-4">
+
+
+
+                        <div th:each="image: ${account.getPicGallery()}">
 
 
 
 
+                            <div class="card">
 
-
-                                <div class="card">
-
-                                        <div>
-                                            <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
-                                                <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" alt="image"  class="img-thumbnail">
-                                            </a>
-                                            <p th:text="${image.getDescription()}" style="font-size: small"></p>
-                                        </div>
-
-                                        <div>
-                                            <!--SET AS PROFILE PICTURE-->
-                                            <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"
-                                                  th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic"/>
-                                            </form>
-
-
-                                            <!--ADD LIKE-->
-                                            <span th:text="${'Likes: ' + image.getLikedAccounts().size()}">Number of likes</span>
-                                            <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"  +
-                                                  th:method="POST"><input type="submit" value="Like" name="likeImg"/>
-                                            </form>
-                                        </div>
-                                        <div>
-                                                <!-- POST A COMMENT-->
-                                                <form th:action="@{/gallery/{nickname}/{id}/(nickname=${account.getNickname()}, id=${image.getId()})}" +
-                                                      th:method="POST">
-                                                            <p>Post a comment: </p>
-                                                            <input type="text" name="comImg"/>
-                                                            <input type="submit" value="Post"/>
-                                                </form>
-                                                <!--LIST ALL COMMENTS-->
-                                                <span th:each="comment: ${image.getCommentList()}">
-                                                   <p th:text="${comment.getAccount().getName()} + ' commented on ' +
-                                                        ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
-                                                    <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
-                                                </span>
-                                        </div>
-
-
+                                <div>
+                                    <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
+                                        <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" alt="image"  class="img-thumbnail">
+                                    </a>
+                                    <p th:text="${image.getDescription()}" style="font-size: small"></p>
                                 </div>
 
+                                <div>
+                                    <!--SET AS PROFILE PICTURE-->
+                                    <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"
+                                          th:method="POST"><input type="submit" value="Set as profile picture" name="setProfPic"/>
+                                    </form>
+
+
+                                    <!--ADD LIKE-->
+                                    <span th:text="${'Likes: ' + image.getLikedAccounts().size()}">Number of likes</span>
+                                    <form th:action="@{/gallery/{nickname}/{id}(nickname=${account.getNickname()}, id=${image.getId()})}"  +
+                                          th:method="POST"><input type="submit" value="Like" name="likeImg"/>
+                                    </form>
+                                </div>
+                                <div>
+                                    <!-- POST A COMMENT-->
+                                    <form th:action="@{/gallery/{nickname}/{id}/(nickname=${account.getNickname()}, id=${image.getId()})}" +
+                                          th:method="POST">
+                                        <p>Post a comment: </p>
+                                        <input type="text" name="comImg"/>
+                                        <input type="submit" value="Post"/>
+                                    </form>
+                                    <!--LIST ALL COMMENTS-->
+                                    <span th:each="comment: ${image.getCommentList()}">
+                                                       <p th:text="${comment.getAccount().getName()} + ' commented on ' +
+                                                            ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
+                                                        <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
+                                    </span>
+                                </div>
+                            </div>
 
 
 
 
-            </div>
+
+
+
+
+                        </div>
+
+                    </div>
 
     </div>
-</span>
+
 </div>
 
 </body>

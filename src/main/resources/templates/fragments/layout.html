@@ -10,7 +10,7 @@
 <body>
 
 <header th:fragment="header">
-    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <nav class="navbar navbar-expand-sm navbar-default">
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/mypage}">My profile</a>
@@ -29,6 +29,14 @@
             </li>
         </ul>
     </nav>
+
+    <style>
+
+        .navbar-default {
+            background-color: #9bf7ba;
+        }
+
+    </style>
 
 
 </header>
