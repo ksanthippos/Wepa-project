@@ -9,8 +9,13 @@
 
 <body>
 
-<header th:fragment="header">
-    <nav class="navbar navbar-expand-sm navbar-default">
+<header th:fragment="header(navBarName)">
+    <nav class="navbar navbar-expand-sm navbar-default justify-content-center">
+
+        <span class="navbar-text">
+            <span th:text="${navBarName}" style="background-color: #7dd699; font-weight: bold"></span>
+        </span>
+
         <ul class="navbar-nav">
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/mypage}">My profile</a>

@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<head th:replace="fragments/layout :: header">
+<head th:replace="fragments/layout :: header(navBarName=${user.getName()})">
     <meta charset="UTF-8">
     <title>All users</title>
 </head>
@@ -28,6 +28,9 @@
                 <tbody>
                     <tr>
                         <td>
+                            <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${account.getProfilePicId()})}" +
+                                 alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
+
                             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
 
                             <span th:if="${user.getFollowingMeDate().containsValue(account)}">
@@ -62,6 +65,9 @@
                 <tbody>
                     <tr>
                         <td>
+                            <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${account.getProfilePicId()})}" +
+                                 alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
+
                             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
                         </td>
                     </tr>

@@ -3,11 +3,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<head th:replace="fragments/layout :: header">
+<head th:replace="fragments/layout :: header(navBarName=${user.getName()})">
     <meta charset="UTF-8">
     <title>Gallery</title>
-
-
 </head>
 
 <body style="background-color: azure">
@@ -62,6 +60,13 @@
                                     </form>
 
                                     <span th:each="comment: ${image.getCommentList()}">
+
+                                        <p>
+                                            <a th:href="@{/account/{nickname}/(nickname=${comment.getAccount().getNickname()})}">
+                                                <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${comment.getAccount().getNickname()}, id=${comment.getAccount().getProfilePicId()})}" +
+                                                     alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 40px; height: 40px"/>
+                                            </a>
+                                        </p>
 
                                         <p th:text="${comment.getContent()}" style="color: crimson"></p>
                                         <span th:text="'Posted by ' + ${comment.getAccount().getName()} + ' on ' +

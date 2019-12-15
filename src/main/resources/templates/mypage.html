@@ -4,7 +4,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<head th:replace="fragments/layout :: header">
+<head th:replace="fragments/layout :: header(navBarName=${user.getName()})">
     <meta charset="UTF-8">
     <title>My wall</title>
 </head>
@@ -60,7 +60,7 @@
 
                             <a th:href="@{/account/{nickname}/(nickname=${message.getAccount().getNickname()})}">
                             <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${message.getAccount().getNickname()}, id=${message.getAccount().getProfilePicId()})}" +
-                                 alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 30px; height: 30px; margin-bottom: 15px"/>
+                                 alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
                             </a>
                             <p th:text="${message.getContent()}" style="color: darkblue; font-size: large"></p>
 
@@ -93,7 +93,7 @@
                                             <p>
                                             <a th:href="@{/account/{nickname}/(nickname=${comment.getAccount().getNickname()})}">
                                                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${comment.getAccount().getNickname()}, id=${comment.getAccount().getProfilePicId()})}" +
-                                                     alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 25px; height: 25px"/>
+                                                     alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 40px; height: 40px"/>
                                             </a>
                                             <p th:text="${comment.getContent()}" style="color: crimson"></p>
                                             <span th:text="'Posted by ' + ${comment.getAccount().getName()} + ' on ' +

@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-<head th:replace="fragments/layout :: header">
+<head th:replace="fragments/layout :: header(navBarName=${account.getName()})">
     <meta charset="UTF-8">
     <title>Gallery</title>
 </head>
@@ -66,9 +66,14 @@
                                         </form>
 
                                         <span th:each="comment: ${image.getCommentList()}">
-                                                               <!--<p th:text="${comment.getAccount().getName()} + ' commented on ' +
-                                                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
-                                                                <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>-->
+
+                                            <p>
+                                                <a th:href="@{/account/{nickname}/(nickname=${comment.getAccount().getNickname()})}">
+                                                    <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${comment.getAccount().getNickname()}, id=${comment.getAccount().getProfilePicId()})}" +
+                                                         alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 40px; height: 40px"/>
+                                                </a>
+                                            </p>
+
                                             <p th:text="${comment.getContent()}" style="color: crimson"></p>
                                             <span th:text="'Posted by ' + ${comment.getAccount().getName()} + ' on ' +
                                                 ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')} + '   '" style="font-style: italic; font-size: small">Post date</span>
@@ -92,7 +97,9 @@
 
                 <input type="text" name="description" id="description" placeholder="Add a description" class="form-control" style="margin-bottom: 15px"/>
 
-                <input type="submit" value="Add" class="btn btn-outline-primary" style="background-color: rgba(145,160,255,0.23)"/>
+                <input type="submit" value="Add" class="btn btn-outline-primary" style="background-color: rgba(145,160,255,0.23); margin-bottom: 5px"/>
+
+                <p>(size limit: 1 Mb, format: .jpg)</p>
 
             </form>
 
