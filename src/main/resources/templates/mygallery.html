@@ -20,23 +20,17 @@
 <body style="background-color: azure">
 
 <div class="jumbotron" style="background-color: #c7f3ff">
-    <div class="row">
-        <div class="col-6">
+
             <h1 align="center">Your photo gallery</h1>
-        </div>
-        <div class="col-6">
 
-
-        </div>
-    </div>
 </div>
+
 
 <div class="container">
 
     <div class="row">
 
         <div class="col-6">
-
 
                     <div th:each="image: ${account.getPicGallery()}">
 
@@ -94,21 +88,7 @@
                                     </div>
                                 </div>
 
-                                        <!--<div>
-                                            &lt;!&ndash; POST A COMMENT&ndash;&gt;
-                                            <form th:action="@{/gallery/{nickname}/{id}/(nickname=${account.getNickname()}, id=${image.getId()})}" +
-                                                  th:method="POST">
-                                                <p>Post a comment: </p>
-                                                <input type="text" name="comImg"/>
-                                                <input type="submit" value="Post"/>
-                                            </form>
-                                            &lt;!&ndash;LIST ALL COMMENTS&ndash;&gt;
-                                            <span th:each="comment: ${image.getCommentList()}">
-                                                               <p th:text="${comment.getAccount().getName()} + ' commented on ' +
-                                                                    ${#temporals.format(comment.getDateTime(), 'dd.MM.yyyy hh:mm')}" style="color: crimson"></p>
-                                                                <p th:text="${comment.getContent()}" style="color: crimson; font-weight: bold"></p>
-                                            </span>
-                                        </div>-->
+
 
 
                             </div>
@@ -120,20 +100,17 @@
 
         <div class="col-6">
 
-            <p>
             <h4>Add new picture</h4>
 
-            <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data"></form>
-            </p>
+            <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
 
-            <input type="file" name="file" id="file"  style="background-color: rgba(145,160,255,0.23); margin-bottom: 15px"/>
-
+                <input type="file" name="file" id="file"  style="background-color: rgba(145,160,255,0.23); margin-bottom: 15px"/>
 
                 <input type="text" name="description" id="description" placeholder="Add a description" class="form-control" style="margin-bottom: 15px"/>
 
                 <input type="submit" value="Add" class="btn btn-outline-primary" style="background-color: rgba(145,160,255,0.23)"/>
 
-
+            </form>
 
         </div>
 
