@@ -121,7 +121,6 @@ public class AccountController {
 
         return "redirect:/users";
 
-
     }
 
     // blocking user
