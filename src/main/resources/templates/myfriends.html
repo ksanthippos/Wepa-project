@@ -8,38 +8,75 @@
     <meta charset="UTF-8">
     <title>All users</title>
 </head>
-<body>
+<body style="background-color: azure">
 
-    <h2>My followers:</h2>
-    <span th:each="account: ${user.getFollowingMe()}">
-
-           <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
-
-           <!--FOLLOW DATES-->
-           <p>
-           <span th:if="${user.getFollowingMeDate().containsValue(account)}">
-              <span th:each="key: ${user.getFollowingMeDate().keySet()}">
-                  <span th:text="'Followed me since: ' + ${key}"></span>
-              </span>
-           </span>
-           </p>
-
-        <!-- hide follow button if already following or if profile is users own-->
-        <span th:if="${!user.getFollowingAt().contains(account)}">
-            <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
-                <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow">
-            </form>
-        </span>
-    </span>
-    <p></p>
+<div class="jumbotron text-center" style="background-color: #c7f3ff">
+    <h1>Friends</h1>
+</div>
 
 
-    <h2>I am following:</h2>
-    <span th:each="account: ${user.getFollowingAt()}">
-        <p>
-            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
-        </p>
-    </span>
+<div class="container-lg">
+
+    <div class="row">
+
+        <!-- FOLLOWING ME-->
+        <div class="col-6">
+
+            <h2>My followers:</h2>
+
+            <table class="table table-hover" th:each="account: ${user.getFollowingMe()}">
+                <tbody>
+                    <tr>
+                        <td>
+
+                            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
+
+                            <span th:if="${user.getFollowingMeDate().containsValue(account)}">
+                              <span th:each="key: ${user.getFollowingMeDate().keySet()}">
+                                  <br>
+                                  <br>
+                                  <i><span th:text="'Followed me since: ' + ${key}"></span></i>
+                              </span>
+                            </span>
+
+
+                            <!-- hide follow button if already following or if profile is users own-->
+                            <span th:if="${!user.getFollowingAt().contains(account)}">
+                                <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
+                                    <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow">
+                                </form>
+                            </span>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+
+        <!-- FOLLOWING ME-->
+        <div class="col-6">
+
+            <h2>I am following:</h2>
+
+            <table class="table table-hover" th:each="account: ${user.getFollowingAt()}">
+                <tbody>
+                    <tr>
+                        <td>
+
+                            <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
+
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </div>
+</div>
+
 
 
 </body>
