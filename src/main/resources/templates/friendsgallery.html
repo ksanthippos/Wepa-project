@@ -6,6 +6,8 @@
 <head th:replace="fragments/layout :: header">
     <meta charset="UTF-8">
     <title>Gallery</title>
+
+
 </head>
 <body>
 
@@ -15,10 +17,10 @@
 <div th:each="image: ${account.getPicGallery()}">
     <div class="gallery">
         <div class="row">
-            <div class="col-6">
+            <div class="col-4">
                 <span>
                     <a th:href="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}">
-                        <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" alt="image">
+                        <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" alt="image" class="img-thumbnail">
                     </a>
                     <p th:text="${image.getDescription()}" style="font-size: small"></p>
                 </span>
