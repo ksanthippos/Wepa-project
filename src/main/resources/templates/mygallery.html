@@ -8,12 +8,10 @@
     <title>Gallery</title>
 
     <style>
-
         .gallery {
             height: 75%;
             width:  75%;
         }
-
     </style>
 </head>
 
@@ -21,16 +19,17 @@
 
 <body style="background-color: azure">
 
-<div class="jumbotron">
+<div class="jumbotron" style="background-color: #c7f3ff">
     <div class="row">
         <div class="col-6">
-            <h1 align="center">Your photo gallery!</h1>
+            <h1 align="center">Your photo gallery</h1>
         </div>
         <div class="col-6">
-            <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
-                <input type="file" name="file" id="file"/>
-                <p>Description: </p><input type="text" name="description" id="description"/>
-                <input type="submit" value="Add"/>
+
+            <p><h4>Add new picture</h4><form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
+               <input type="file" name="file" id="file" class="btn btn-primary"  style="background-color: rgba(145,160,255,0.23)"/></p>
+                <input type="text" name="description" id="description" placeholder="Add a description" class="form-control" style="margin-bottom: 15px"/>
+                <input type="submit" value="Add" class="btn btn-outline-primary" style="background-color: rgba(145,160,255,0.23) "/>
             </form>
         </div>
     </div>
@@ -38,7 +37,7 @@
 
 <div class="container">
 
-    <div class="row">
+    <div class="row" style="gallery">
 
         <div th:each="image: ${account.getPicGallery()}">
 

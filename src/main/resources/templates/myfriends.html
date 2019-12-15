@@ -28,7 +28,6 @@
                 <tbody>
                     <tr>
                         <td>
-
                             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
 
                             <span th:if="${user.getFollowingMeDate().containsValue(account)}">
@@ -38,7 +37,6 @@
                                   <i><span th:text="'Followed me since: ' + ${key}"></span></i>
                               </span>
                             </span>
-
 
                             <!-- hide follow button if already following or if profile is users own-->
                             <span th:if="${!user.getFollowingAt().contains(account)}">
@@ -64,9 +62,7 @@
                 <tbody>
                     <tr>
                         <td>
-
                             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
-
                         </td>
                     </tr>
                 </tbody>
