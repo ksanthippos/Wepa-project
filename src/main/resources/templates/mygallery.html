@@ -30,7 +30,7 @@
 
     <div class="row">
 
-        <div class="col-6">
+        <div class="col-sm-6">
 
                     <div th:each="image: ${account.getPicGallery()}">
 
@@ -43,8 +43,6 @@
                                                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${image.getId()})}" +
                                                      class="img-thumbnail" style="margin-bottom: 10px">
                                             </a>
-
-
 
                                         </div>
 
@@ -98,9 +96,9 @@
 
         </div>
 
-        <div class="col-6">
+        <div class="col-sm-6">
 
-            <h4>Add new picture</h4>
+            <h4 style="margin-top: 15px">Add new picture</h4>
 
             <form method="POST" th:action="@{/mygallery}" enctype="multipart/form-data">
 
@@ -113,6 +111,8 @@
             </form>
 
         </div>
+
+
 
     </div>
 
