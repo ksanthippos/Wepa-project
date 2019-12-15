@@ -56,7 +56,8 @@ public class CommentController {
         messageRepository.save(message);
         accountRepository.save(me);
 
-        return "redirect:/account/{nickname}";
+        /*return "redirect:/account/{nickname}";*/
+        return "redirect:/account/" + message.getAccount().getNickname();
 
     }
 
