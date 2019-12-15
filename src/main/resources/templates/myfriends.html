@@ -29,7 +29,7 @@
                     <tr>
                         <td>
                             <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${account.getProfilePicId()})}" +
-                                 alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
+                                 onerror="this.src='https://picsum.photos/640/360'" alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
 
                             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
 
@@ -66,7 +66,7 @@
                     <tr>
                         <td>
                             <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${account.getNickname()}, id=${account.getProfilePicId()})}" +
-                                 alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
+                                 onerror="this.src='https://picsum.photos/640/360'" alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
 
                             <a th:href="@{/account/{nickname}(nickname=${account.getNickname()})}" th:text="${account.getName()}">name</a>
                         </td>

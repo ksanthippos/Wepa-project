@@ -82,8 +82,9 @@ public class ImageController {
 
         Account me = accountRepository.findByUsername(authenticateUser());
 
-        // accept only .jpeg format and 10 images max per gallery
-        if (file.getContentType().equals("image/jpeg") && me.getPicGallery().size() < 10) {
+        // choose correct file format and limit amount to 10 images max per gallery
+        if (file.getContentType().equals("image/jpeg") || file.getContentType().equals("image/png") ||
+             file.getContentType().equals("image/gif") && me.getPicGallery().size() < 10) {
             Image i = new Image();
             i.setContent(file.getBytes());
             i.setDescription(description);

@@ -64,7 +64,7 @@
                                         <p>
                                             <a th:href="@{/account/{nickname}/(nickname=${comment.getAccount().getNickname()})}">
                                                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${comment.getAccount().getNickname()}, id=${comment.getAccount().getProfilePicId()})}" +
-                                                     alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 40px; height: 40px"/>
+                                                     onerror="this.src='https://picsum.photos/640/360'" alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 40px; height: 40px"/>
                                             </a>
                                         </p>
 

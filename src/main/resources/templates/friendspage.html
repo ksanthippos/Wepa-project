@@ -31,7 +31,7 @@
                 <div class="card" style="width: 300px; border-color: darkgoldenrod">
 
                     <img class="card-img-top" th:src="@{/gallery/{nickname}/{id}/content(nickname=${friend.getNickname()}, id=${friend.getProfilePicId()})}" +
-                         alt="Profile picture"/>
+                         onerror="this.src='https://picsum.photos/640/360'" alt="Profile picture"/>
                     <div class="card-body">
 
                         <div>
@@ -67,7 +67,7 @@
 
                             <a th:href="@{/account/{nickname}/(nickname=${message.getAccount().getNickname()})}">
                                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${message.getAccount().getNickname()}, id=${message.getAccount().getProfilePicId()})}" +
-                                 alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
+                                     onerror="this.src='https://picsum.photos/640/360'" alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 50px; height: 50px; margin-bottom: 15px"/>
                             </a>
                             <p th:text="${message.getContent()}" style="color: darkblue; font-size: large"></p>
 
@@ -101,7 +101,7 @@
                                             <p>
                                             <a th:href="@{/account/{nickname}/(nickname=${comment.getAccount().getNickname()})}">
                                                 <img th:src="@{/gallery/{nickname}/{id}/content(nickname=${comment.getAccount().getNickname()}, id=${comment.getAccount().getProfilePicId()})}" +
-                                                     alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 40px; height: 40px"/>
+                                                     onerror="this.src='https://picsum.photos/640/360'" alt="Profile picture" class="mr-3 mt-3 rounded" style="width: 40px; height: 40px"/>
                                             </a>
                                             <p th:text="${comment.getContent()}" style="color: crimson"></p>
                                             <span th:text="'Posted by ' + ${comment.getAccount().getName()} + ' on ' +
