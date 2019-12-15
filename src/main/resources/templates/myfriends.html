@@ -44,7 +44,7 @@
                             <!-- hide follow button if already following or if profile is users own-->
                             <span th:if="${!user.getFollowingAt().contains(account)}">
                                 <form th:action="@{/users/{id}(id=${account.getId()})}" method="POST">
-                                    <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow">
+                                    <input th:if="${!(user.getId() == account.getId())}" type="submit" value="Follow" class="btn btn-primary">
                                 </form>
                             </span>
 

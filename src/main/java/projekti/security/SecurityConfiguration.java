@@ -33,8 +33,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                     .permitAll()
                 .antMatchers("/register")
                     .permitAll()
-                .antMatchers("/h2-console","/h2-console/**")
-                    .permitAll()
+              /*  .antMatchers("/h2-console","/h2-console/**")
+                    .permitAll()*/
                 .anyRequest()
                     .authenticated()
                     .and()

@@ -11,8 +11,11 @@
 <body style="background-color: azure">
 
 <div class="container">
+
     <h2 style="margin-left: 0; margin-bottom: 20px; margin-top: 20px">Create a new account</h2>
-    <div class="form-group">
+
+        <div class="form-group">
+
             <form method="POST" th:action="@{/register}">
 
                     <p>
@@ -36,12 +39,15 @@
                     </p>
 
             </form>
+
         <p style="font-size: small">(All fields must have 4 characters as a minimum length)</p>
 
     </div>
+
     <div>
         <p><a href="/login">Back to login</a> </p>
     </div>
+
 </div>
 
 
