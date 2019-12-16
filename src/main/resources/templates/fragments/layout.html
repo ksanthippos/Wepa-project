@@ -12,11 +12,17 @@
 <header th:fragment="header(navBarName)">
     <nav class="navbar navbar-expand-sm navbar-default justify-content-center">
 
-        <span class="navbar-text">
+
+
+        <ul class="navbar-nav">
+
+            <li>
+                <span class="navbar-text">
             <span th:text="${navBarName}" style="background-color: #7dd699; font-weight: bold"></span>
         </span>
 
-        <ul class="navbar-nav">
+            </li>
+
             <li class="nav-item">
                 <a class="nav-link" th:href="@{/mypage}">My profile</a>
             </li>
@@ -52,9 +58,9 @@
 </header>
 
 
-<footer>
+<footer style="background-color: #c7f3ff">
 
-    <i><p align="center" style="margin: 30px; font-size: small">Tweeter is a school project on a Helsinki University web server programming MOOC (2019)</p></i>
+    <i><p align="center" style="margin: 30px; font-size: small">Tweeter is a school project on Helsinki University web-server programming MOOC (2019)</p></i>
 
 </footer>
 
